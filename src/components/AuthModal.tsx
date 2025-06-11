@@ -36,7 +36,7 @@ const AuthModal = () => {
         }
         success = await signup(email, password, name);
         if (success) {
-          toast.success('Account created successfully! Welcome bonus of ₹5L added to your wallet!');
+          toast.success('Account created successfully! Welcome to Divest India!');
         } else {
           toast.error('User already exists or signup failed');
         }
