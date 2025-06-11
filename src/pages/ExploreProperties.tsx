@@ -56,7 +56,9 @@ const ExploreProperties = () => {
               <SelectContent className="bg-slate-900 border-slate-700">
                 <SelectItem value="all">All Locations</SelectItem>
                 {locations.map(location => (
-                  <SelectItem key={location} value={location}>{location}</SelectItem>
+                  <SelectItem key={location} value={location}>
+                    {location}
+                  </SelectItem>
                 ))}
               </SelectContent>
             </Select>
@@ -125,7 +127,7 @@ const ExploreProperties = () => {
                 </CardHeader>
                 
                 <CardContent className="pt-2">
-                  <p className="text-gray-300 text-sm mb-4 line-clamp-2">{property.description}</p>
+                  <p className="text-gray-300 text-sm mb-4">{property.description}</p>
                   
                   <div className="flex justify-between items-center mb-4">
                     <div>
