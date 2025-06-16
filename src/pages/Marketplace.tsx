@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Sidebar from '@/components/Sidebar';
 import { useAuth } from '@/contexts/AuthContext';
@@ -11,6 +10,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ShoppingCart, TrendingUp, Users, DollarSign, Plus, Eye } from 'lucide-react';
 import { toast } from 'sonner';
+import { useNavigate } from 'react-router-dom';
 
 interface MarketListing {
   id: string;
@@ -26,13 +26,15 @@ interface MarketListing {
 
 const Marketplace = () => {
   const { user, updateWalletBalance } = useAuth();
+  const navigate = useNavigate();
   const [selectedProperty, setSelectedProperty] = useState('');
   const [sharesAmount, setSharesAmount] = useState('');
   const [pricePerShare, setPricePerShare] = useState('');
   const [activeTab, setActiveTab] = useState<'buy' | 'sell'>('buy');
+  const [userListings, setUserListings] = useState<MarketListing[]>([]);
 
   // Mock marketplace listings
-  const [marketListings] = useState<MarketListing[]>([
+  const [marketListings, setMarketListings] = useState<MarketListing[]>([
     {
       id: '1',
       propertyId: '1',
@@ -75,18 +77,18 @@ const Marketplace = () => {
     }
   ]);
 
+  const handleViewProperty = (propertyId: string) => {
+    navigate(`/property/${propertyId}?from=marketplace`);
+  };
+
   const handleBuyShares = (listing: MarketListing) => {
-    if (!user) return;
-
-    if (user.walletBalance < listing.totalValue) {
-      toast.error('Insufficient wallet balance');
-      return;
-    }
-
-    // Deduct from wallet
-    updateWalletBalance(-listing.totalValue);
-    
-    toast.success(`Successfully purchased ${listing.sharesForSale} shares of ${listing.propertyName} for ₹${listing.totalValue.toLocaleString('en-IN')}`);
+    // Navigate to mock payment page with listing data
+    navigate('/marketplace/payment', { 
+      state: { 
+        listing,
+        type: 'marketplace'
+      } 
+    });
   };
 
   const handleListShares = () => {
@@ -104,6 +106,31 @@ const Marketplace = () => {
       return;
     }
 
+    // Check if user has enough shares
+    const userInvestment = user?.investments?.find(inv => inv.propertyId === selectedProperty);
+    if (!userInvestment || userInvestment.sharesOwned < shares) {
+      toast.error('Insufficient shares to sell');
+      return;
+    }
+
+    const property = mockProperties.find(p => p.id === selectedProperty);
+    if (!property) return;
+
+    const newListing: MarketListing = {
+      id: `user-${Date.now()}`,
+      propertyId: selectedProperty,
+      propertyName: property.name,
+      sellerName: user?.name || 'You',
+      sharesForSale: shares,
+      pricePerShare: price,
+      totalValue: total,
+      listedDate: new Date().toISOString().split('T')[0],
+      isOwnListing: true
+    };
+
+    setMarketListings(prev => [...prev, newListing]);
+    setUserListings(prev => [...prev, newListing]);
+
     toast.success(`Successfully listed ${shares} shares for ₹${total.toLocaleString('en-IN')}`);
     setSelectedProperty('');
     setSharesAmount('');
@@ -111,6 +138,7 @@ const Marketplace = () => {
   };
 
   const userInvestments = user?.investments || [];
+  const allListings = [...marketListings, ...userListings];
 
   return (
     <div className="min-h-screen bg-slate-950 flex">
@@ -129,7 +157,7 @@ const Marketplace = () => {
               <ShoppingCart className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-xl lg:text-2xl font-bold text-white">{marketListings.length}</div>
+              <div className="text-xl lg:text-2xl font-bold text-white">{allListings.length}</div>
               <p className="text-xs text-muted-foreground">Available for purchase</p>
             </CardContent>
           </Card>
@@ -215,7 +243,7 @@ const Marketplace = () => {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {marketListings.map((listing) => (
+                    {allListings.map((listing) => (
                       <TableRow key={listing.id} className="border-slate-700 hover:bg-slate-800">
                         <TableCell>
                           <div>
@@ -223,21 +251,30 @@ const Marketplace = () => {
                             <p className="text-gray-400 text-xs sm:hidden">{listing.sellerName}</p>
                           </div>
                         </TableCell>
-                        <TableCell className="text-gray-300 text-sm hidden sm:table-cell">{listing.sellerName}</TableCell>
+                        <TableCell className="text-gray-300 text-sm hidden sm:table-cell">
+                          {listing.isOwnListing ? (
+                            <span className="text-orange-400">You</span>
+                          ) : (
+                            listing.sellerName
+                          )}
+                        </TableCell>
                         <TableCell className="text-white font-semibold text-sm">{listing.sharesForSale}</TableCell>
                         <TableCell className="text-white font-semibold text-sm">₹{listing.pricePerShare.toLocaleString('en-IN')}</TableCell>
                         <TableCell className="text-green-400 font-semibold text-sm hidden lg:table-cell">₹{listing.totalValue.toLocaleString('en-IN')}</TableCell>
                         <TableCell className="text-gray-300 text-sm hidden lg:table-cell">{new Date(listing.listedDate).toLocaleDateString()}</TableCell>
                         <TableCell>
                           <div className="flex gap-2">
+                            {!listing.isOwnListing && (
+                              <Button 
+                                onClick={() => handleBuyShares(listing)}
+                                size="sm"
+                                className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white text-xs px-3 py-1"
+                              >
+                                Buy
+                              </Button>
+                            )}
                             <Button 
-                              onClick={() => handleBuyShares(listing)}
-                              size="sm"
-                              className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white text-xs px-3 py-1"
-                            >
-                              Buy
-                            </Button>
-                            <Button 
+                              onClick={() => handleViewProperty(listing.propertyId)}
                               size="sm"
                               variant="outline"
                               className="border-slate-600 text-white hover:bg-slate-800 text-xs px-3 py-1"
