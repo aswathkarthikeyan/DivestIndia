@@ -1,177 +1,160 @@
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Sidebar from '@/components/Sidebar';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { mockProperties } from '@/data/mockProperties';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Badge } from '@/components/ui/badge';
-import { mockProperties } from '@/data/mockProperties';
-import { useNavigate } from 'react-router-dom';
+import { MapPin, Building2, TrendingUp, Search } from 'lucide-react';
 
 const ExploreProperties = () => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [locationFilter, setLocationFilter] = useState('all');
-  const [roiFilter, setRoiFilter] = useState('all');
+  const [typeFilter, setTypeFilter] = useState('all');
 
   const filteredProperties = mockProperties.filter(property => {
     const matchesSearch = property.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          property.location.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesLocation = locationFilter === 'all' || property.location === locationFilter;
-    const matchesROI = roiFilter === 'all' || 
-                      (roiFilter === 'high' && property.roi >= 10) ||
-                      (roiFilter === 'medium' && property.roi >= 7 && property.roi < 10) ||
-                      (roiFilter === 'low' && property.roi < 7);
+    const matchesLocation = locationFilter === 'all' || property.location.includes(locationFilter);
+    const matchesType = typeFilter === 'all' || property.propertyType.toLowerCase().includes(typeFilter.toLowerCase());
     
-    return matchesSearch && matchesLocation && matchesROI;
+    return matchesSearch && matchesLocation && matchesType;
   });
 
-  const locations = [...new Set(mockProperties.map(p => p.location))];
+  const locations = Array.from(new Set(mockProperties.map(p => p.location.split(',')[1]?.trim()).filter(Boolean)));
+  const types = Array.from(new Set(mockProperties.map(p => p.propertyType)));
 
   return (
-    <div className="flex h-screen bg-slate-950 text-white">
+    <div className="min-h-screen bg-slate-950 flex">
       <Sidebar />
-      
-      <div className="flex-1 overflow-auto">
-        <div className="p-8">
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold mb-2">Explore Properties</h1>
-            <p className="text-gray-400">Discover premium properties for fractional ownership</p>
-          </div>
+      <div className="flex-1 p-8">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-white mb-2">Explore Properties</h1>
+          <p className="text-gray-400">Discover and invest in premium real estate opportunities</p>
+        </div>
 
-          {/* Filters */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+        {/* Search and Filters */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+          <div className="relative">
+            <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
             <Input
               placeholder="Search properties..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="bg-slate-900 border-slate-700 text-white"
+              className="pl-10 bg-slate-900 border-slate-700 text-white"
             />
-            
-            <Select value={locationFilter} onValueChange={setLocationFilter}>
-              <SelectTrigger className="bg-slate-900 border-slate-700 text-white">
-                <SelectValue placeholder="Location" />
-              </SelectTrigger>
-              <SelectContent className="bg-slate-900 border-slate-700">
-                <SelectItem value="all">All Locations</SelectItem>
-                {locations.map(location => (
-                  <SelectItem key={location} value={location}>
-                    {location}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-
-            <Select value={roiFilter} onValueChange={setRoiFilter}>
-              <SelectTrigger className="bg-slate-900 border-slate-700 text-white">
-                <SelectValue placeholder="ROI" />
-              </SelectTrigger>
-              <SelectContent className="bg-slate-900 border-slate-700">
-                <SelectItem value="all">All ROI</SelectItem>
-                <SelectItem value="high">High (10%+)</SelectItem>
-                <SelectItem value="medium">Medium (7-10%)</SelectItem>
-                <SelectItem value="low">Conservative (5-7%)</SelectItem>
-              </SelectContent>
-            </Select>
-
-            <Button 
-              className="bg-gradient-to-r from-purple-600 to-blue-600"
-              onClick={() => {
-                setSearchTerm('');
-                setLocationFilter('all');
-                setRoiFilter('all');
-              }}
-            >
-              Clear Filters
-            </Button>
           </div>
+          
+          <Select value={locationFilter} onValueChange={setLocationFilter}>
+            <SelectTrigger className="bg-slate-900 border-slate-700 text-white">
+              <SelectValue placeholder="All Locations" />
+            </SelectTrigger>
+            <SelectContent className="bg-slate-900 border-slate-700">
+              <SelectItem value="all">All Locations</SelectItem>
+              {locations.map(location => (
+                <SelectItem key={location} value={location}>{location}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
 
-          {/* Properties Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredProperties.map((property) => (
-              <Card key={property.id} className="bg-slate-900 border-slate-800 overflow-hidden hover:bg-slate-800 transition-all duration-300 cursor-pointer group">
-                <div 
-                  className="relative aspect-video overflow-hidden"
-                  onClick={() => navigate(`/property/${property.id}`)}
-                >
-                  <img 
-                    src={property.images[0]} 
-                    alt={property.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                    {property.roi}% YoY
+          <Select value={typeFilter} onValueChange={setTypeFilter}>
+            <SelectTrigger className="bg-slate-900 border-slate-700 text-white">
+              <SelectValue placeholder="All Types" />
+            </SelectTrigger>
+            <SelectContent className="bg-slate-900 border-slate-700">
+              <SelectItem value="all">All Types</SelectItem>
+              {types.map(type => (
+                <SelectItem key={type} value={type}>{type}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          <Button 
+            onClick={() => {
+              setSearchTerm('');
+              setLocationFilter('all');
+              setTypeFilter('all');
+            }}
+            variant="outline"
+            className="border-slate-600 text-white hover:bg-slate-800"
+          >
+            Clear Filters
+          </Button>
+        </div>
+
+        {/* Properties Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredProperties.map((property) => (
+            <Card key={property.id} className="bg-slate-900 border-slate-700 hover:bg-slate-800 transition-all duration-300 hover:scale-105 cursor-pointer">
+              <div className="aspect-video relative overflow-hidden rounded-t-lg">
+                <img 
+                  src={property.images[0]} 
+                  alt={property.name}
+                  className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+                />
+                <div className="absolute top-4 right-4">
+                  <span className="bg-green-500 text-white px-2 py-1 rounded-lg text-sm font-semibold">
+                    {property.roi}% ROI
+                  </span>
+                </div>
+              </div>
+              
+              <CardHeader>
+                <CardTitle className="text-white">{property.name}</CardTitle>
+                <div className="flex items-center text-gray-400">
+                  <MapPin className="h-4 w-4 mr-1" />
+                  <span className="text-sm">{property.location}</span>
+                </div>
+              </CardHeader>
+              
+              <CardContent className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center text-gray-300">
+                    <Building2 className="h-4 w-4 mr-1" />
+                    <span className="text-sm">{property.propertyType}</span>
                   </div>
-                  <div className="absolute bottom-4 left-4">
-                    <Badge variant="secondary" className="bg-white/90 text-slate-900">
-                      {property.availableShares}/{property.totalShares} shares available
-                    </Badge>
+                  <div className="flex items-center text-purple-400">
+                    <TrendingUp className="h-4 w-4 mr-1" />
+                    <span className="text-sm font-semibold">{property.expectedReturns}</span>
                   </div>
                 </div>
                 
-                <CardHeader className="pb-2">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="text-xl font-semibold text-white group-hover:text-purple-400 transition-colors">
-                        {property.name}
-                      </h3>
-                      <p className="text-gray-400">{property.location}</p>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-lg font-bold text-white">
-                        ₹{(property.value / 10000000).toFixed(1)} Cr
-                      </div>
-                    </div>
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-400">Property Value:</span>
+                    <span className="text-white font-semibold">₹{(property.value / 10000000).toFixed(1)}Cr</span>
                   </div>
-                </CardHeader>
-                
-                <CardContent className="pt-2">
-                  <p className="text-gray-300 text-sm mb-4">{property.description}</p>
-                  
-                  <div className="flex justify-between items-center mb-4">
-                    <div>
-                      <div className="text-sm text-gray-400">Min Investment</div>
-                      <div className="font-semibold text-purple-400">
-                        ₹{property.minInvestment.toLocaleString('en-IN')}
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-sm text-gray-400">Property Type</div>
-                      <div className="font-semibold text-white">{property.propertyType}</div>
-                    </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-400">Min Investment:</span>
+                    <span className="text-white font-semibold">₹{property.minInvestment.toLocaleString('en-IN')}</span>
                   </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-400">Available Shares:</span>
+                    <span className="text-blue-400 font-semibold">{property.availableShares}/{property.totalShares}</span>
+                  </div>
+                </div>
 
-                  <div className="flex gap-2">
-                    <Button 
-                      className="flex-1 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
-                      onClick={() => navigate(`/property/${property.id}`)}
-                    >
-                      View Details
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          {filteredProperties.length === 0 && (
-            <div className="text-center py-16">
-              <h3 className="text-xl font-semibold text-gray-400 mb-2">No properties found</h3>
-              <p className="text-gray-500 mb-4">Try adjusting your filters to see more properties</p>
-              <Button 
-                onClick={() => {
-                  setSearchTerm('');
-                  setLocationFilter('all');
-                  setRoiFilter('all');
-                }}
-                className="bg-gradient-to-r from-purple-600 to-blue-600"
-              >
-                Clear All Filters
-              </Button>
-            </div>
-          )}
+                <Button 
+                  onClick={() => navigate(`/property/${property.id}`)}
+                  className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white transition-all duration-300"
+                >
+                  View Details & Invest
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
         </div>
+
+        {filteredProperties.length === 0 && (
+          <div className="text-center py-12">
+            <Building2 className="h-16 w-16 text-gray-500 mx-auto mb-4" />
+            <h3 className="text-xl font-semibold text-white mb-2">No Properties Found</h3>
+            <p className="text-gray-400">Try adjusting your search criteria or filters</p>
+          </div>
+        )}
       </div>
     </div>
   );

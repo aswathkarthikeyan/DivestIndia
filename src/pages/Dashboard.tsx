@@ -2,12 +2,13 @@
 import React from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import Sidebar from '@/components/Sidebar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Building2, TrendingUp, Wallet, User, LogOut, ArrowRight, PlusCircle } from 'lucide-react';
+import { Building2, TrendingUp, Wallet, ArrowRight, PlusCircle } from 'lucide-react';
 
 const Dashboard = () => {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   const totalInvested = user?.investments.reduce((sum, inv) => sum + inv.amountInvested, 0) || 0;
@@ -16,76 +17,17 @@ const Dashboard = () => {
   const returnPercentage = totalInvested > 0 ? (totalReturn / totalInvested) * 100 : 0;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-      {/* Header */}
-      <header className="border-b border-slate-700 bg-slate-900/50 backdrop-blur-md">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-            Divest India
-          </h1>
-          <div className="flex items-center gap-4">
-            <nav className="flex gap-6">
-              <Button 
-                variant="ghost" 
-                onClick={() => navigate('/dashboard')}
-                className="text-purple-400 hover:text-purple-300"
-              >
-                Dashboard
-              </Button>
-              <Button 
-                variant="ghost" 
-                onClick={() => navigate('/explore')}
-                className="text-gray-300 hover:text-purple-300"
-              >
-                Explore
-              </Button>
-              <Button 
-                variant="ghost" 
-                onClick={() => navigate('/portfolio')}
-                className="text-gray-300 hover:text-purple-300"
-              >
-                Portfolio
-              </Button>
-              <Button 
-                variant="ghost" 
-                onClick={() => navigate('/wallet')}
-                className="text-gray-300 hover:text-purple-300"
-              >
-                Wallet
-              </Button>
-              <Button 
-                variant="ghost" 
-                onClick={() => navigate('/profile')}
-                className="text-gray-300 hover:text-purple-300"
-              >
-                Profile
-              </Button>
-            </nav>
-            <span className="text-gray-300">Welcome, {user?.name}</span>
-            <Button
-              onClick={logout}
-              variant="outline"
-              className="border-red-400 text-red-400 hover:bg-red-400 hover:text-white transition-all duration-300"
-            >
-              <LogOut className="h-4 w-4 mr-2" />
-              Logout
-            </Button>
-          </div>
-        </div>
-      </header>
-
-      <div className="container mx-auto px-4 py-8">
-        {/* Welcome Section */}
-        <div className="text-center mb-8 animate-fade-in">
-          <h2 className="text-4xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-4">
-            Welcome back, {user?.name}!
-          </h2>
-          <p className="text-gray-300 text-lg">Your investment dashboard</p>
+    <div className="min-h-screen bg-slate-950 flex">
+      <Sidebar />
+      <div className="flex-1 p-8">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-white mb-2">Dashboard</h1>
+          <p className="text-gray-400">Welcome back, {user?.name}! Here's your investment overview.</p>
         </div>
         
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <Card className="bg-slate-800 border-slate-700 hover:bg-slate-700 transition-all duration-300 hover:scale-105 animate-fade-in">
+          <Card className="bg-slate-900 border-slate-700 hover:bg-slate-800 transition-all duration-300 hover:scale-105">
             <CardHeader>
               <CardTitle className="text-white flex items-center gap-2">
                 <Wallet className="h-5 w-5 text-green-400" />
@@ -98,7 +40,7 @@ const Dashboard = () => {
             </CardContent>
           </Card>
           
-          <Card className="bg-slate-800 border-slate-700 hover:bg-slate-700 transition-all duration-300 hover:scale-105 animate-fade-in" style={{animationDelay: '0.1s'}}>
+          <Card className="bg-slate-900 border-slate-700 hover:bg-slate-800 transition-all duration-300 hover:scale-105">
             <CardHeader>
               <CardTitle className="text-white flex items-center gap-2">
                 <Building2 className="h-5 w-5 text-blue-400" />
@@ -111,7 +53,7 @@ const Dashboard = () => {
             </CardContent>
           </Card>
           
-          <Card className="bg-slate-800 border-slate-700 hover:bg-slate-700 transition-all duration-300 hover:scale-105 animate-fade-in" style={{animationDelay: '0.2s'}}>
+          <Card className="bg-slate-900 border-slate-700 hover:bg-slate-800 transition-all duration-300 hover:scale-105">
             <CardHeader>
               <CardTitle className="text-white flex items-center gap-2">
                 <TrendingUp className="h-5 w-5 text-purple-400" />
@@ -124,7 +66,7 @@ const Dashboard = () => {
             </CardContent>
           </Card>
 
-          <Card className="bg-slate-800 border-slate-700 hover:bg-slate-700 transition-all duration-300 hover:scale-105 animate-fade-in" style={{animationDelay: '0.3s'}}>
+          <Card className="bg-slate-900 border-slate-700 hover:bg-slate-800 transition-all duration-300 hover:scale-105">
             <CardHeader>
               <CardTitle className="text-white flex items-center gap-2">
                 <TrendingUp className="h-5 w-5 text-yellow-400" />
@@ -144,7 +86,7 @@ const Dashboard = () => {
 
         {/* Quick Actions */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          <Card className="bg-slate-800 border-slate-700 hover:bg-slate-700 transition-all duration-300 animate-fade-in" style={{animationDelay: '0.4s'}}>
+          <Card className="bg-slate-900 border-slate-700 hover:bg-slate-800 transition-all duration-300">
             <CardHeader>
               <CardTitle className="text-white">Quick Actions</CardTitle>
               <CardDescription className="text-gray-400">
@@ -172,7 +114,7 @@ const Dashboard = () => {
             </CardContent>
           </Card>
 
-          <Card className="bg-slate-800 border-slate-700 hover:bg-slate-700 transition-all duration-300 animate-fade-in" style={{animationDelay: '0.5s'}}>
+          <Card className="bg-slate-900 border-slate-700 hover:bg-slate-800 transition-all duration-300">
             <CardHeader>
               <CardTitle className="text-white">Recent Investments</CardTitle>
               <CardDescription className="text-gray-400">
@@ -183,7 +125,7 @@ const Dashboard = () => {
               {user?.investments.length ? (
                 <div className="space-y-3">
                   {user.investments.slice(-3).reverse().map((investment, index) => (
-                    <div key={index} className="flex justify-between items-center p-3 bg-slate-700 rounded-lg">
+                    <div key={index} className="flex justify-between items-center p-3 bg-slate-800 rounded-lg">
                       <div>
                         <p className="text-white font-medium">{investment.propertyName}</p>
                         <p className="text-gray-400 text-sm">

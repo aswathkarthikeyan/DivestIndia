@@ -3,11 +3,11 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 
 interface User {
   id: string;
-  email: string;
   name: string;
+  email: string;
   walletBalance: number;
-  joinDate: string;
   investments: Investment[];
+  joinDate: string;
 }
 
 interface Investment {
@@ -35,35 +35,42 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
+};
+
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authMode, setAuthMode] = useState<'login' | 'signup'>('login');
 
   useEffect(() => {
-    // Check for existing session
-    const savedUser = localStorage.getItem('divest_user');
+    const savedUser = localStorage.getItem('divest-user');
     if (savedUser) {
       setUser(JSON.parse(savedUser));
     }
   }, []);
 
   const login = async (email: string, password: string): Promise<boolean> => {
-    // Mock login - in real app, this would call an API
-    const savedUsers = JSON.parse(localStorage.getItem('divest_users') || '[]');
-    const foundUser = savedUsers.find((u: any) => u.email === email && u.password === password);
+    const savedUsers = JSON.parse(localStorage.getItem('divest-users') || '[]');
+    const existingUser = savedUsers.find((u: any) => u.email === email && u.password === password);
     
-    if (foundUser) {
-      const user = {
-        id: foundUser.id,
-        email: foundUser.email,
-        name: foundUser.name,
-        walletBalance: foundUser.walletBalance,
-        joinDate: foundUser.joinDate,
-        investments: foundUser.investments || []
+    if (existingUser) {
+      const userToLogin: User = {
+        id: existingUser.id,
+        name: existingUser.name,
+        email: existingUser.email,
+        walletBalance: existingUser.walletBalance || 10000,
+        investments: existingUser.investments || [],
+        joinDate: existingUser.joinDate
       };
-      setUser(user);
-      localStorage.setItem('divest_user', JSON.stringify(user));
+      
+      setUser(userToLogin);
+      localStorage.setItem('divest-user', JSON.stringify(userToLogin));
       setShowAuthModal(false);
       return true;
     }
@@ -71,44 +78,44 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const signup = async (email: string, password: string, name: string): Promise<boolean> => {
-    // Mock signup
-    const savedUsers = JSON.parse(localStorage.getItem('divest_users') || '[]');
+    const savedUsers = JSON.parse(localStorage.getItem('divest-users') || '[]');
+    const userExists = savedUsers.some((u: any) => u.email === email);
     
-    if (savedUsers.find((u: any) => u.email === email)) {
-      return false; // User already exists
+    if (userExists) {
+      return false;
     }
 
     const newUser = {
       id: Date.now().toString(),
+      name,
       email,
       password,
-      name,
-      walletBalance: 10000, // Starting with ₹10,000 instead of ₹5L
-      joinDate: new Date().toISOString(),
-      investments: []
+      walletBalance: 10000, // Start with ₹10,000 instead of ₹5L
+      investments: [],
+      joinDate: new Date().toISOString()
     };
 
     savedUsers.push(newUser);
-    localStorage.setItem('divest_users', JSON.stringify(savedUsers));
-
-    const user = {
+    localStorage.setItem('divest-users', JSON.stringify(savedUsers));
+    
+    const userToLogin: User = {
       id: newUser.id,
-      email: newUser.email,
       name: newUser.name,
+      email: newUser.email,
       walletBalance: newUser.walletBalance,
-      joinDate: newUser.joinDate,
-      investments: newUser.investments
+      investments: newUser.investments,
+      joinDate: newUser.joinDate
     };
     
-    setUser(user);
-    localStorage.setItem('divest_user', JSON.stringify(user));
+    setUser(userToLogin);
+    localStorage.setItem('divest-user', JSON.stringify(userToLogin));
     setShowAuthModal(false);
     return true;
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('divest_user');
+    localStorage.removeItem('divest-user');
   };
 
   const openAuthModal = (mode: 'login' | 'signup') => {
@@ -124,66 +131,56 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (user) {
       const updatedUser = { ...user, walletBalance: user.walletBalance + amount };
       setUser(updatedUser);
-      localStorage.setItem('divest_user', JSON.stringify(updatedUser));
+      localStorage.setItem('divest-user', JSON.stringify(updatedUser));
       
-      // Update in users array too
-      const savedUsers = JSON.parse(localStorage.getItem('divest_users') || '[]');
+      // Update in users array
+      const savedUsers = JSON.parse(localStorage.getItem('divest-users') || '[]');
       const userIndex = savedUsers.findIndex((u: any) => u.id === user.id);
       if (userIndex !== -1) {
         savedUsers[userIndex].walletBalance = updatedUser.walletBalance;
-        localStorage.setItem('divest_users', JSON.stringify(savedUsers));
+        localStorage.setItem('divest-users', JSON.stringify(savedUsers));
       }
     }
   };
 
   const addInvestment = (investment: Omit<Investment, 'currentValue'>) => {
     if (user) {
-      const newInvestment = {
+      const newInvestment: Investment = {
         ...investment,
-        currentValue: investment.amountInvested // Initial value equals invested amount
+        currentValue: investment.amountInvested * 1.12 // 12% return simulation
       };
       
-      const updatedUser = { 
-        ...user, 
-        investments: [...user.investments, newInvestment] 
+      const updatedUser = {
+        ...user,
+        investments: [...user.investments, newInvestment]
       };
       
       setUser(updatedUser);
-      localStorage.setItem('divest_user', JSON.stringify(updatedUser));
+      localStorage.setItem('divest-user', JSON.stringify(updatedUser));
       
-      // Update in users array too
-      const savedUsers = JSON.parse(localStorage.getItem('divest_users') || '[]');
+      // Update in users array
+      const savedUsers = JSON.parse(localStorage.getItem('divest-users') || '[]');
       const userIndex = savedUsers.findIndex((u: any) => u.id === user.id);
       if (userIndex !== -1) {
         savedUsers[userIndex].investments = updatedUser.investments;
-        localStorage.setItem('divest_users', JSON.stringify(savedUsers));
+        localStorage.setItem('divest-users', JSON.stringify(savedUsers));
       }
     }
   };
 
-  return (
-    <AuthContext.Provider value={{
-      user,
-      isAuthenticated: !!user,
-      showAuthModal,
-      authMode,
-      login,
-      signup,
-      logout,
-      openAuthModal,
-      closeAuthModal,
-      updateWalletBalance,
-      addInvestment
-    }}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
+  const value: AuthContextType = {
+    user,
+    isAuthenticated: !!user,
+    showAuthModal,
+    authMode,
+    login,
+    signup,
+    logout,
+    openAuthModal,
+    closeAuthModal,
+    updateWalletBalance,
+    addInvestment
+  };
 
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
