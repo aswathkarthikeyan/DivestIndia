@@ -35,13 +35,13 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* Mobile Menu Button */}
-      <div className="lg:hidden fixed top-4 left-4 z-50">
+      {/* Mobile Menu Button - Fixed positioning to avoid overlap */}
+      <div className="lg:hidden fixed top-6 left-6 z-50">
         <Button
           variant="ghost"
           size="sm"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="bg-slate-900/80 backdrop-blur-md border border-slate-700 text-white hover:bg-slate-800"
+          className="bg-slate-900/90 backdrop-blur-md border border-slate-700 text-white hover:bg-slate-800 shadow-lg"
         >
           {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </Button>
