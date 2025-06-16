@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -15,6 +14,8 @@ import Portfolio from "./pages/Portfolio";
 import Wallet from "./pages/Wallet";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
+import MarketTrends from "./pages/MarketTrends";
+import Marketplace from "./pages/Marketplace";
 
 const queryClient = new QueryClient();
 
@@ -41,6 +42,16 @@ const App = () => (
             <Route path="/explore" element={
               <ProtectedRoute>
                 <ExploreProperties />
+              </ProtectedRoute>
+            } />
+            <Route path="/market-trends" element={
+              <ProtectedRoute>
+                <MarketTrends />
+              </ProtectedRoute>
+            } />
+            <Route path="/marketplace" element={
+              <ProtectedRoute>
+                <Marketplace />
               </ProtectedRoute>
             } />
             <Route path="/property/:id" element={
