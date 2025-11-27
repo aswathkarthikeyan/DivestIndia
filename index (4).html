@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Divest India | The Future of Real Estate Investing</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --accent: #f59e0b;
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        .font-heading {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155; 
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569; 
+        }
+
+        /* Glassmorphism & Utility */
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-sidebar {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        
+        .fade-out {
+            animation: fadeOut 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-10px); }
+        }
+
+        .sidebar-link.active {
+            background: linear-gradient(90deg, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0) 100%);
+            border-left: 3px solid #3b82f6;
+            color: #fff;
+        }
+
+        /* Confetti Animation */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            animation: fall linear forwards;
+        }
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(720deg); }
+        }
+
+        /* AI Pulse */
+        .ai-pulse {
+            box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.7);
+            animation: pulse-purple 2s infinite;
+        }
+        @keyframes pulse-purple {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(139, 92, 246, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); }
+        }
+    </style>
+</head>
+<body class="h-screen flex flex-col text-sm antialiased bg-slate-900 selection:bg-blue-500 selection:text-white">
+
+    <!-- ==================== LANDING / AUTH SCREEN ==================== -->
+    <div id="auth-container" class="fixed inset-0 z-50 flex bg-slate-900">
+        <!-- Left Side: Visual -->
+        <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-slate-800">
+            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-40"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent"></div>
+            <div class="relative z-10 p-12 flex flex-col justify-end h-full">
+                <div class="mb-6 inline-block">
+                    <span class="bg-blue-600/20 text-blue-400 border border-blue-600/30 px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase">Shark Tank Pilot v1.2</span>
+                </div>
+                <h1 class="text-5xl font-heading font-bold mb-4 leading-tight">Own a piece of <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">India's Skyline</span>.</h1>
+                <p class="text-lg text-gray-300 max-w-md mb-8">Grade-A commercial real estate. Monthly rental yields. AI-driven asset selection. Now accessible to everyone.</p>
+                <div class="flex space-x-8 border-t border-gray-700 pt-8">
+                    <div>
+                        <div class="text-3xl font-bold text-white">12%</div>
+                        <div class="text-sm text-gray-400">Avg. IRR</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold text-white">0%</div>
+                        <div class="text-sm text-gray-400">Default Rate</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold text-white">₹5K</div>
+                        <div class="text-sm text-gray-400">Min Invest</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side: Form -->
+        <div class="w-full lg:w-1/2 flex items-center justify-center p-8 relative">
+            <div class="w-full max-w-md space-y-8">
+                <div class="text-center lg:text-left">
+                    <div class="flex items-center justify-center lg:justify-start space-x-2 mb-2">
+                        <i class="fa-solid fa-layer-group text-blue-500 text-2xl"></i>
+                        <span class="text-2xl font-heading font-bold tracking-tight">DIVEST<span class="text-blue-500">INDIA</span></span>
+                    </div>
+                    <h2 class="text-3xl font-bold mt-6">Pilot Access</h2>
+                    <p class="text-gray-400 mt-2">Log in to the beta trading terminal.</p>
+                </div>
+
+                <form onsubmit="handleLogin(event)" class="space-y-6 mt-8">
+                    <div class="bg-slate-800/50 p-4 rounded-lg border border-slate-700/50 flex items-start space-x-3">
+                        <i class="fa-solid fa-lock text-yellow-500 mt-0.5"></i>
+                        <div class="text-xs text-slate-400">
+                            This is a restricted pilot environment. Access is logged and monitored.
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-gray-300 mb-2 uppercase tracking-wider">Authorized Email</label>
+                        <input type="email" id="login-email" value="pilot@divest.in" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition" placeholder="name@company.com" required>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-gray-300 mb-2 uppercase tracking-wider">Access Key</label>
+                        <input type="password" id="login-pass" value="divest2024" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition" placeholder="••••••••" required>
+                    </div>
+                    <div class="text-red-500 text-xs hidden" id="login-error"><i class="fa-solid fa-circle-exclamation mr-1"></i> Invalid access credentials.</div>
+                    
+                    <button type="submit" id="login-btn" class="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-bold py-3.5 rounded-lg shadow-lg shadow-blue-500/25 transition transform hover:-translate-y-0.5">
+                        Secure Login
+                    </button>
+                </form>
+                
+                <div class="text-center text-xs text-slate-500">
+                    Need access? <a href="#" class="text-blue-500 hover:underline">Request Invitation</a>
+                </div>
+            </div>
+            
+            <div class="absolute bottom-6 text-center w-full px-8">
+                <p class="text-[10px] text-gray-600 uppercase tracking-widest">Secured by 256-bit Encryption</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MAIN APP (Hidden initially) ==================== -->
+    <div id="app-container" class="flex h-screen overflow-hidden hidden opacity-0 transition-opacity duration-700">
+        
+        <!-- Sidebar -->
+        <aside class="w-64 glass-sidebar flex flex-col z-20 hidden md:flex">
+            <div class="h-16 flex items-center px-6 border-b border-slate-800">
+                <i class="fa-solid fa-layer-group text-blue-500 text-xl mr-2"></i>
+                <span class="text-xl font-heading font-bold tracking-tight text-white">DIVEST<span class="text-blue-500">INDIA</span></span>
+            </div>
+
+            <div class="p-4 overflow-y-auto flex-1">
+                <div class="text-xs font-bold text-slate-500 uppercase mb-3 px-2">Platform</div>
+                <nav class="space-y-1">
+                    <a href="#" onclick="switchView('dashboard')" id="nav-dashboard" class="sidebar-link active flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-300 hover:bg-slate-800 transition">
+                        <i class="fa-solid fa-chart-pie w-5 text-center"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="#" onclick="switchView('marketplace')" id="nav-marketplace" class="sidebar-link flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-300 hover:bg-slate-800 transition">
+                        <i class="fa-solid fa-building w-5 text-center"></i>
+                        <span>Marketplace</span>
+                    </a>
+                    <a href="#" onclick="switchView('portfolio')" id="nav-portfolio" class="sidebar-link flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-300 hover:bg-slate-800 transition">
+                        <i class="fa-solid fa-briefcase w-5 text-center"></i>
+                        <span>My Portfolio</span>
+                    </a>
+                    <a href="#" onclick="switchView('documents')" id="nav-documents" class="sidebar-link flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-300 hover:bg-slate-800 transition">
+                        <i class="fa-solid fa-file-contract w-5 text-center"></i>
+                        <span>Legal & Tax</span>
+                    </a>
+                </nav>
+
+                <div class="text-xs font-bold text-slate-500 uppercase mt-8 mb-3 px-2">Account</div>
+                <nav class="space-y-1">
+                    <a href="#" onclick="switchView('settings')" id="nav-settings" class="sidebar-link flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-300 hover:bg-slate-800 transition">
+                        <i class="fa-solid fa-gear w-5 text-center"></i>
+                        <span>Settings</span>
+                    </a>
+                    <a href="#" onclick="switchView('support')" id="nav-support" class="sidebar-link flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-300 hover:bg-slate-800 transition">
+                        <i class="fa-solid fa-headset w-5 text-center"></i>
+                        <span>Priority Support</span>
+                    </a>
+                </nav>
+            </div>
+
+            <div class="mt-auto p-4 border-t border-slate-800">
+                <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-4 border border-slate-700/50 shadow-inner">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-[10px] uppercase font-bold text-gray-400">Wallet Balance</span>
+                        <button onclick="showDepositModal()" class="text-blue-400 text-[10px] hover:text-white font-bold uppercase tracking-wide"><i class="fa-solid fa-plus-circle"></i> Add Funds</button>
+                    </div>
+                    <div class="text-xl font-bold font-mono text-white tracking-tight" id="sidebar-balance">₹0.00</div>
+                </div>
+                <div class="mt-4 flex items-center space-x-3 px-2 cursor-pointer hover:opacity-80" onclick="logout()">
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold text-xs shadow-lg">P</div>
+                    <div class="flex-1">
+                        <div class="text-sm font-medium text-white">Pilot User</div>
+                        <div class="text-xs text-gray-500">Verified Investor</div>
+                    </div>
+                    <i class="fa-solid fa-right-from-bracket text-gray-500"></i>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Mobile Navbar Bottom -->
+        <div class="md:hidden fixed bottom-0 left-0 right-0 bg-slate-900/95 backdrop-blur border-t border-slate-800 flex justify-around p-3 z-40 safe-area-pb">
+             <a href="#" onclick="switchView('dashboard')" class="flex flex-col items-center text-gray-400 hover:text-blue-500 transition">
+                 <i class="fa-solid fa-chart-pie text-lg mb-1"></i>
+                 <span class="text-[10px]">Home</span>
+             </a>
+             <a href="#" onclick="switchView('marketplace')" class="flex flex-col items-center text-gray-400 hover:text-blue-500 transition">
+                 <i class="fa-solid fa-building text-lg mb-1"></i>
+                 <span class="text-[10px]">Invest</span>
+             </a>
+             <a href="#" onclick="switchView('portfolio')" class="flex flex-col items-center text-gray-400 hover:text-blue-500 transition">
+                 <i class="fa-solid fa-briefcase text-lg mb-1"></i>
+                 <span class="text-[10px]">Portfolio</span>
+             </a>
+             <a href="#" onclick="switchView('settings')" class="flex flex-col items-center text-gray-400 hover:text-blue-500 transition">
+                 <i class="fa-solid fa-user text-lg mb-1"></i>
+                 <span class="text-[10px]">Profile</span>
+             </a>
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col bg-[#0f172a] relative overflow-hidden">
+            <!-- Top Header -->
+            <header class="h-16 border-b border-slate-800 flex items-center justify-between px-4 md:px-8 bg-slate-900/80 backdrop-blur sticky top-0 z-30">
+                <div class="flex items-center text-gray-400 text-sm">
+                    <div class="md:hidden mr-4 text-white font-bold text-lg"><span class="text-blue-500">D</span>IVEST</div>
+                    <span id="page-title" class="font-medium text-white mr-4 hidden md:inline">Dashboard</span>
+                    <span class="text-slate-600 px-2 hidden md:inline">/</span>
+                    <span class="text-emerald-500 flex items-center space-x-2 text-xs md:text-sm bg-emerald-500/10 px-2 py-1 rounded-full border border-emerald-500/20 ml-2"><div class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse mr-1.5"></div> <span>Market Live</span></span>
+                </div>
+                <div class="flex items-center space-x-4 md:space-x-6">
+                    <!-- Live Ticker -->
+                    <div class="hidden lg:flex items-center overflow-hidden w-64 h-8 relative bg-slate-800/50 rounded-lg px-3 border border-slate-700/50">
+                        <div class="whitespace-nowrap animate-marquee text-xs flex space-x-4" id="header-ticker">
+                            <!-- Injected JS -->
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-4">
+                         <button class="relative text-gray-400 hover:text-white transition">
+                            <i class="fa-regular fa-bell text-lg"></i>
+                            <div class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full border border-slate-900 animate-ping"></div>
+                            <div class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full border border-slate-900"></div>
+                        </button>
+                        <div class="w-px h-8 bg-slate-800 mx-2"></div>
+                        <div class="text-xs text-right hidden sm:block">
+                            <div class="text-slate-400">Help & Support</div>
+                            <div class="text-blue-500 font-bold">+91 98765 43210</div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Scrollable Area -->
+            <div class="flex-1 overflow-y-auto p-4 md:p-8 relative pb-24 md:pb-8 scroll-smooth" id="content-area">
+                
+                <!-- VIEW: DASHBOARD -->
+                <div id="view-dashboard" class="fade-in space-y-8">
+                    
+                    <!-- Activity Ticker -->
+                    <div class="bg-blue-900/20 border border-blue-500/20 rounded-lg p-3 flex items-center space-x-3 animate-pulse">
+                        <i class="fa-solid fa-bolt text-yellow-400"></i>
+                        <span class="text-xs text-blue-100" id="activity-feed">Live: Verified Investor from Mumbai just purchased 50 units of Bandra BKC One.</span>
+                    </div>
+
+                    <!-- Stats Overview -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-gradient-to-br from-slate-800 to-slate-900 p-6 rounded-2xl border border-slate-700/50 shadow-lg relative overflow-hidden group hover:border-blue-500/30 transition">
+                            <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition"><i class="fa-solid fa-chart-area text-6xl text-blue-500"></i></div>
+                            <div class="relative z-10">
+                                <p class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-1">Total Portfolio Value</p>
+                                <h3 class="text-4xl font-heading font-bold text-white tracking-tight" id="dash-total-value">₹0.00</h3>
+                                <div class="flex items-center text-sm mt-4">
+                                    <span id="dash-returns-color" class="text-emerald-500 font-bold bg-emerald-500/10 px-2 py-0.5 rounded mr-2 flex items-center border border-emerald-500/20">
+                                        <i id="dash-arrow" class="fa-solid fa-arrow-up text-xs mr-1"></i> 
+                                        <span id="dash-returns-pct">0.00%</span>
+                                    </span>
+                                    <span class="text-slate-500 text-xs">All-time Appreciation</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700/50 shadow-lg relative overflow-hidden group hover:border-purple-500/30 transition">
+                             <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition"><i class="fa-solid fa-coins text-6xl text-purple-500"></i></div>
+                            <div class="relative z-10">
+                                <p class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-1">Projected Monthly Rent</p>
+                                <h3 class="text-4xl font-heading font-bold text-white tracking-tight" id="dash-rent">₹0.00</h3>
+                                <div class="mt-4 w-full bg-slate-700/50 rounded-full h-1.5 overflow-hidden">
+                                    <div class="bg-purple-500 h-full rounded-full" style="width: 65%"></div>
+                                </div>
+                                <div class="flex justify-between mt-2 text-xs">
+                                    <span class="text-slate-400">Payout in 12 days</span>
+                                    <span class="text-purple-400 font-bold">Oct 1st</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700/50 shadow-lg relative overflow-hidden">
+                            <div class="absolute -right-10 -top-10 w-40 h-40 bg-emerald-500/10 rounded-full blur-3xl"></div>
+                            <div class="flex justify-between items-start mb-4 relative z-10">
+                                <div>
+                                    <p class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-1">Available Cash</p>
+                                    <h3 class="text-3xl font-bold text-white font-mono" id="dash-balance">₹0.00</h3>
+                                </div>
+                                <div class="p-2 bg-emerald-500/10 rounded-lg text-emerald-500"><i class="fa-solid fa-wallet"></i></div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3 mt-4 relative z-10">
+                                <button onclick="showDepositModal()" class="py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-sm font-bold transition shadow-lg shadow-emerald-600/20 flex items-center justify-center">
+                                    <i class="fa-solid fa-plus mr-2 text-xs"></i> Add Funds
+                                </button>
+                                <button class="py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg text-sm font-medium transition flex items-center justify-center">
+                                    <i class="fa-solid fa-building-columns mr-2 text-xs"></i> Withdraw
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Featured Property (IPO Style) -->
+                    <div class="bg-gradient-to-r from-slate-800 to-slate-900 rounded-2xl border border-slate-700 overflow-hidden flex flex-col md:flex-row shadow-2xl">
+                        <div class="md:w-2/5 relative h-64 md:h-auto group">
+                            <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2070&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                            <div class="absolute top-4 left-4 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase shadow-lg flex items-center">
+                                <span class="w-2 h-2 bg-white rounded-full animate-pulse mr-2"></span> IPO Live
+                            </div>
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-900 to-transparent h-24"></div>
+                        </div>
+                        <div class="md:w-3/5 p-6 md:p-8 flex flex-col justify-center relative">
+                            <div class="absolute top-0 right-0 p-4">
+                                <span class="bg-slate-700/50 text-slate-300 px-2 py-1 rounded text-xs border border-slate-600">Resort Asset</span>
+                            </div>
+                            <div class="flex justify-between items-start mb-2">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-white font-heading">Azure Bay Resorts</h3>
+                                    <p class="text-slate-400 text-sm"><i class="fa-solid fa-location-dot mr-1 text-blue-500"></i> North Goa, India</p>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4 my-6 border-y border-slate-700/50 py-4">
+                                <div>
+                                    <div class="text-xs text-slate-500 uppercase">Target IRR</div>
+                                    <div class="text-xl font-bold text-emerald-400">14.2%</div>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-slate-500 uppercase">Min Inv</div>
+                                    <div class="text-xl font-bold text-white">₹5,000</div>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-slate-500 uppercase">Lock-in</div>
+                                    <div class="text-xl font-bold text-white">3 Yrs</div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <div class="flex justify-between text-xs text-slate-400 mb-2">
+                                    <span>Funding Progress</span>
+                                    <span class="text-white font-bold">82% Subscribed</span>
+                                </div>
+                                <div class="w-full bg-slate-700 rounded-full h-3 overflow-hidden shadow-inner">
+                                    <div class="bg-gradient-to-r from-blue-600 to-blue-400 h-full rounded-full relative" style="width: 82%">
+                                        <div class="absolute inset-0 bg-white/20 animate-pulse"></div>
+                                    </div>
+                                </div>
+                                <div class="text-xs text-slate-500 mt-2 text-right">Closing in 4 days</div>
+                            </div>
+
+                            <button onclick="openPropertyDetail(11)" class="w-full bg-white text-slate-900 hover:bg-gray-100 py-3.5 rounded-lg font-bold transition shadow-lg shadow-white/10 flex items-center justify-center">
+                                View Opportunity <i class="fa-solid fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Market Table -->
+                    <div>
+                        <div class="flex justify-between items-end mb-4">
+                            <h3 class="text-lg font-bold text-white">Top Performers</h3>
+                            <a href="#" onclick="switchView('marketplace')" class="text-blue-500 text-sm hover:text-blue-400 font-bold">View All Assets <i class="fa-solid fa-angle-right ml-1"></i></a>
+                        </div>
+                        <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden shadow-xl">
+                            <table class="w-full text-left text-sm">
+                                <thead class="bg-slate-900/80 text-slate-400 uppercase text-[10px] font-bold tracking-wider border-b border-slate-700">
+                                    <tr>
+                                        <th class="p-4">Property Name</th>
+                                        <th class="p-4 hidden md:table-cell">Asset Class</th>
+                                        <th class="p-4 text-right">NAV Price</th>
+                                        <th class="p-4 text-right">24h Change</th>
+                                        <th class="p-4 text-right">Divest Score</th>
+                                        <th class="p-4 text-right">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-700/50" id="dashboard-market-rows">
+                                    <!-- Injected via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VIEW: MARKETPLACE -->
+                <div id="view-marketplace" class="hidden fade-in">
+                    <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+                        <div>
+                            <h2 class="text-2xl font-heading font-bold text-white">Primary Marketplace</h2>
+                            <p class="text-slate-400 text-sm">Institutional-grade assets curated by AI.</p>
+                        </div>
+                        <div class="flex bg-slate-800 p-1 rounded-lg border border-slate-700">
+                            <button class="px-4 py-1.5 bg-slate-700 text-white rounded-md text-xs font-bold shadow-sm">All</button>
+                            <button class="px-4 py-1.5 text-slate-400 hover:text-white rounded-md text-xs font-bold transition">Commercial</button>
+                            <button class="px-4 py-1.5 text-slate-400 hover:text-white rounded-md text-xs font-bold transition">Residential</button>
+                            <button class="px-4 py-1.5 text-slate-400 hover:text-white rounded-md text-xs font-bold transition">Data Centers</button>
+                        </div>
+                    </div>
+
+                    <div id="marketplace-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-20">
+                        <!-- Cards injected via JS -->
+                    </div>
+                </div>
+
+                <!-- VIEW: PORTFOLIO -->
+                <div id="view-portfolio" class="hidden fade-in">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-heading font-bold">My Investment Portfolio</h2>
+                        <button class="text-xs bg-slate-800 hover:bg-slate-700 px-3 py-2 rounded border border-slate-600 text-slate-300"><i class="fa-solid fa-download mr-1"></i> Tax Report</button>
+                    </div>
+                    
+                    <!-- Portfolio Summary Cards -->
+                    <div id="portfolio-stats-bar" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 hidden">
+                         <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
+                             <div class="text-xs text-slate-400 uppercase">Invested Amt</div>
+                             <div class="text-lg font-bold text-white" id="port-invested">₹0</div>
+                         </div>
+                         <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
+                             <div class="text-xs text-slate-400 uppercase">Current Value</div>
+                             <div class="text-lg font-bold text-white" id="port-current">₹0</div>
+                         </div>
+                         <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
+                             <div class="text-xs text-slate-400 uppercase">Total Gain</div>
+                             <div class="text-lg font-bold text-emerald-400" id="port-gain">₹0</div>
+                         </div>
+                         <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
+                             <div class="text-xs text-slate-400 uppercase">Active Assets</div>
+                             <div class="text-lg font-bold text-blue-400" id="port-count">0</div>
+                         </div>
+                    </div>
+
+                    <div class="bg-slate-800 rounded-2xl border border-slate-700 overflow-hidden overflow-x-auto shadow-xl">
+                         <table class="w-full text-left text-sm min-w-[900px]">
+                            <thead class="bg-slate-900 text-slate-400 uppercase text-xs font-bold tracking-wider">
+                                <tr>
+                                    <th class="p-4 pl-6">Asset Name</th>
+                                    <th class="p-4 text-center">Units</th>
+                                    <th class="p-4 text-right">Avg. Cost</th>
+                                    <th class="p-4 text-right">Current Price</th>
+                                    <th class="p-4 text-right">Invested Val</th>
+                                    <th class="p-4 text-right">Current Val</th>
+                                    <th class="p-4 text-right">Total Return</th>
+                                    <th class="p-4 text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-700/50" id="portfolio-list">
+                                <!-- JS Injected -->
+                            </tbody>
+                        </table>
+                        
+                        <!-- Empty State -->
+                        <div id="portfolio-empty" class="p-20 text-center">
+                            <div class="inline-block p-6 rounded-full bg-slate-700/30 mb-4"><i class="fa-solid fa-chart-pie text-5xl text-slate-600"></i></div>
+                            <h3 class="text-xl font-bold text-white mb-2">Start Your Portfolio</h3>
+                            <p class="text-slate-400 text-sm mb-8 max-w-xs mx-auto">Invest in India's top commercial assets starting at just ₹5,000.</p>
+                            <button onclick="switchView('marketplace')" class="bg-blue-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-500 shadow-lg shadow-blue-600/20 transition transform hover:-translate-y-1">Explore Marketplace</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VIEW: DOCUMENTS -->
+                <div id="view-documents" class="hidden fade-in">
+                    <h2 class="text-2xl font-bold mb-6">Legal & Tax Documents</h2>
+                    <div class="grid gap-4 max-w-3xl">
+                        <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 flex items-center justify-between hover:border-blue-500/50 transition group cursor-pointer">
+                            <div class="flex items-center space-x-5">
+                                <div class="w-12 h-12 bg-red-500/10 rounded-lg flex items-center justify-center text-red-500"><i class="fa-solid fa-file-pdf text-2xl"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-white group-hover:text-blue-400 transition">Subscription Agreement</h4>
+                                    <p class="text-xs text-slate-400">Updated: Oct 20, 2024 • 2.4 MB • Mandatory</p>
+                                </div>
+                            </div>
+                            <button class="text-slate-400 hover:text-white bg-slate-900 p-2 rounded-lg"><i class="fa-solid fa-download"></i></button>
+                        </div>
+                        <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 flex items-center justify-between hover:border-blue-500/50 transition group cursor-pointer">
+                            <div class="flex items-center space-x-5">
+                                <div class="w-12 h-12 bg-red-500/10 rounded-lg flex items-center justify-center text-red-500"><i class="fa-solid fa-file-pdf text-2xl"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-white group-hover:text-blue-400 transition">Risk Disclosure Document (RDD)</h4>
+                                    <p class="text-xs text-slate-400">SEBI Compliant • 1.1 MB • Read Carefully</p>
+                                </div>
+                            </div>
+                            <button class="text-slate-400 hover:text-white bg-slate-900 p-2 rounded-lg"><i class="fa-solid fa-download"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VIEW: SETTINGS -->
+                <div id="view-settings" class="hidden fade-in">
+                    <h2 class="text-2xl font-bold mb-6">Account Settings</h2>
+                    <div class="bg-slate-800 rounded-xl border border-slate-700 p-8 max-w-2xl">
+                        <div class="flex items-center space-x-6 mb-10 pb-8 border-b border-slate-700">
+                            <div class="w-20 h-20 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold text-3xl shadow-lg">P</div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-white">Pilot User</h3>
+                                <p class="text-slate-400">pilot@divest.in</p>
+                                <div class="flex space-x-2 mt-2">
+                                     <span class="bg-emerald-500/20 text-emerald-500 text-xs px-2 py-1 rounded border border-emerald-500/20 font-bold"><i class="fa-solid fa-check-circle mr-1"></i> KYC Verified</span>
+                                     <span class="bg-blue-500/20 text-blue-500 text-xs px-2 py-1 rounded border border-blue-500/20 font-bold">Tier 1 Investor</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-6">
+                            <h4 class="text-slate-500 uppercase text-xs font-bold tracking-wider">Security</h4>
+                            <div class="flex items-center justify-between py-2">
+                                <div>
+                                    <div class="text-white font-medium">Two-Factor Authentication</div>
+                                    <div class="text-xs text-slate-400">Secure your account with OTP</div>
+                                </div>
+                                <div class="w-12 h-6 bg-slate-600 rounded-full relative cursor-pointer transition hover:bg-slate-500"><div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full shadow"></div></div>
+                            </div>
+                            
+                            <h4 class="text-slate-500 uppercase text-xs font-bold tracking-wider mt-4">Banking</h4>
+                            <div class="bg-slate-900 p-4 rounded-lg border border-slate-700 flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-white rounded flex items-center justify-center"><img src="https://logo.clearbit.com/hdfcbank.com" class="w-6"></div>
+                                    <div>
+                                        <div class="text-white text-sm font-bold">HDFC Bank</div>
+                                        <div class="text-xs text-slate-400">•••• 4582 • Primary</div>
+                                    </div>
+                                </div>
+                                <button class="text-xs text-red-400 hover:text-red-300">Unlink</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VIEW: SUPPORT -->
+                <div id="view-support" class="hidden fade-in">
+                    <h2 class="text-2xl font-bold mb-6">Priority Support</h2>
+                    <div class="grid md:grid-cols-2 gap-6">
+                         <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl border border-slate-700 p-8 relative overflow-hidden">
+                             <div class="relative z-10">
+                                <div class="text-xs text-blue-400 font-bold uppercase mb-2">Dedicated Wealth Manager</div>
+                                <h3 class="text-2xl font-bold text-white mb-4">Aditya Malhotra</h3>
+                                <p class="text-sm text-slate-400 mb-6">Your dedicated relationship manager is available Mon-Fri, 9AM - 6PM for portfolio reviews and queries.</p>
+                                
+                                <div class="flex space-x-3">
+                                    <button class="flex-1 bg-blue-600 hover:bg-blue-500 text-white py-2 rounded-lg text-sm font-bold transition"><i class="fa-solid fa-phone mr-2"></i> Call Now</button>
+                                    <button class="flex-1 bg-slate-700 hover:bg-slate-600 text-white py-2 rounded-lg text-sm font-bold transition"><i class="fa-solid fa-envelope mr-2"></i> Email</button>
+                                </div>
+                             </div>
+                         </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- ==================== PROPERTY DETAIL OVERLAY ==================== -->
+    <div id="view-property-detail" class="hidden fade-in bg-slate-900 fixed inset-0 z-50 overflow-y-auto">
+        <div class="relative min-h-screen pb-20">
+            <!-- Hero -->
+            <div class="h-72 md:h-96 relative">
+                <img id="detail-img" src="" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent"></div>
+                <div class="absolute top-0 left-0 w-full p-6 flex justify-between items-start z-30">
+                    <button onclick="closePropertyDetail()" class="bg-black/50 hover:bg-black/70 text-white px-4 py-2 rounded-full backdrop-blur border border-white/10 transition flex items-center text-sm font-bold">
+                        <i class="fa-solid fa-arrow-left mr-2"></i> Back to Market
+                    </button>
+                </div>
+            </div>
+            
+            <div class="max-w-7xl mx-auto px-4 md:px-8 -mt-40 relative z-10">
+                <div class="flex flex-col lg:flex-row gap-8">
+                    
+                    <!-- Main Info -->
+                    <div class="flex-1 space-y-6">
+                        <!-- Title Card -->
+                        <div class="bg-slate-800 rounded-2xl p-6 md:p-8 border border-slate-700 shadow-2xl relative overflow-hidden">
+                            <div class="flex flex-col md:flex-row justify-between md:items-start gap-4 relative z-10">
+                                <div>
+                                    <div class="flex space-x-2 mb-3">
+                                        <span id="detail-tag" class="bg-blue-600 text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wide">Commercial</span>
+                                        <span class="bg-purple-600 text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wide flex items-center ai-pulse"><i class="fa-solid fa-robot mr-1"></i> AI Pick</span>
+                                    </div>
+                                    <h1 id="detail-title" class="text-3xl md:text-5xl font-heading font-bold text-white leading-tight">Property Name</h1>
+                                    <p id="detail-loc" class="text-slate-300 mt-2 flex items-center text-lg"><i class="fa-solid fa-location-dot mr-2 text-blue-400"></i> Location</p>
+                                </div>
+                                <div class="text-left md:text-right">
+                                    <div class="text-xs text-slate-400 uppercase font-bold mb-1">Latest NAV</div>
+                                    <div id="detail-price" class="text-4xl font-mono font-bold text-white tracking-tight">₹0.00</div>
+                                    <div id="detail-change" class="text-sm font-bold text-emerald-500 mt-1">+0.0%</div>
+                                </div>
+                            </div>
+
+                            <!-- Key Metrics Grid -->
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-8 border-t border-slate-700">
+                                <div class="p-4 rounded-xl bg-slate-900/50 border border-slate-700/50">
+                                    <div class="text-slate-400 text-xs mb-1 uppercase font-bold">Rental Yield</div>
+                                    <div id="detail-yield" class="text-2xl font-bold text-emerald-400">0%</div>
+                                </div>
+                                <div class="p-4 rounded-xl bg-slate-900/50 border border-slate-700/50">
+                                    <div class="text-slate-400 text-xs mb-1 uppercase font-bold">Target IRR</div>
+                                    <div id="detail-irr" class="text-2xl font-bold text-blue-400">0%</div>
+                                </div>
+                                <div class="p-4 rounded-xl bg-slate-900/50 border border-slate-700/50">
+                                    <div class="text-slate-400 text-xs mb-1 uppercase font-bold">Divest Score</div>
+                                    <div class="text-2xl font-bold text-purple-400 flex items-center">
+                                        <span id="detail-score">92</span><span class="text-xs text-slate-500 ml-1">/100</span>
+                                    </div>
+                                </div>
+                                <div class="p-4 rounded-xl bg-slate-900/50 border border-slate-700/50">
+                                    <div class="text-slate-400 text-xs mb-1 uppercase font-bold">Occupancy</div>
+                                    <div class="text-2xl font-bold text-amber-400">100%</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- AI & Chart Section -->
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <!-- Chart -->
+                            <div class="md:col-span-2 bg-slate-800 rounded-2xl p-6 border border-slate-700 shadow-lg">
+                                <div class="flex justify-between items-center mb-6">
+                                    <h3 class="font-bold text-white text-lg">NAV Performance</h3>
+                                    <div class="flex space-x-1 bg-slate-900 rounded-lg p-1 border border-slate-700">
+                                        <button class="px-3 py-1 text-xs rounded bg-slate-700 text-white shadow-sm">1Y</button>
+                                        <button class="px-3 py-1 text-xs rounded hover:bg-slate-800 text-gray-400 transition">3Y</button>
+                                        <button class="px-3 py-1 text-xs rounded hover:bg-slate-800 text-gray-400 transition">ALL</button>
+                                    </div>
+                                </div>
+                                <div class="h-64 w-full">
+                                    <canvas id="detailChart"></canvas>
+                                </div>
+                            </div>
+                            
+                            <!-- AI Insights -->
+                            <div class="md:col-span-1 bg-gradient-to-br from-indigo-900 to-slate-900 rounded-2xl p-6 border border-indigo-500/30 shadow-lg">
+                                <div class="flex items-center mb-4 text-indigo-300">
+                                    <i class="fa-solid fa-wand-magic-sparkles mr-2"></i>
+                                    <h3 class="font-bold text-white">AI Forecast</h3>
+                                </div>
+                                <div class="space-y-4">
+                                    <div>
+                                        <div class="flex justify-between text-xs text-indigo-200 mb-1">
+                                            <span>Projected Appreciation (1Y)</span>
+                                            <span class="font-bold text-white" id="detail-ai-growth">+8.4%</span>
+                                        </div>
+                                        <div class="w-full bg-indigo-900 rounded-full h-1.5">
+                                            <div class="bg-indigo-400 h-full rounded-full" style="width: 70%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="text-xs text-indigo-200 leading-relaxed bg-indigo-500/10 p-3 rounded-lg border border-indigo-500/20">
+                                        "Micro-market analysis suggests high demand due to upcoming metro line. Rental escalation of 15% expected in 2025."
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Info Tabs -->
+                        <div class="bg-slate-800 rounded-2xl p-8 border border-slate-700 shadow-lg space-y-6">
+                            <div class="border-b border-slate-700 pb-4 mb-4">
+                                <div class="flex space-x-6 text-sm font-bold">
+                                    <button class="text-blue-500 border-b-2 border-blue-500 pb-4 -mb-4.5">Investment Logic</button>
+                                    <button class="text-slate-400 hover:text-white transition">Financials</button>
+                                    <button class="text-slate-400 hover:text-white transition">Documents</button>
+                                    <button class="text-slate-400 hover:text-white transition">Location</button>
+                                </div>
+                            </div>
+                            
+                            <p class="text-slate-300 leading-relaxed">
+                                This institutional-grade asset offers a rare opportunity to own a slice of premium real estate in a high-growth corridor. 
+                                The property is fully leased to a blue-chip tenant with a long-term lock-in period, ensuring predictable cash flows. 
+                                Located in a strategic micro-market, it is poised for significant capital appreciation driven by infrastructure development.
+                            </p>
+                            
+                            <div class="grid md:grid-cols-2 gap-6 mt-4">
+                                <div class="bg-slate-900/50 p-4 rounded-xl">
+                                    <h4 class="font-bold text-white mb-3 text-sm uppercase tracking-wide">Tenant Profile</h4>
+                                    <ul class="space-y-2 text-sm text-slate-400">
+                                        <li class="flex items-center"><i class="fa-solid fa-building text-slate-500 w-6"></i> Fortune 500 Technology Company</li>
+                                        <li class="flex items-center"><i class="fa-solid fa-star text-slate-500 w-6"></i> AAA Credit Rating</li>
+                                        <li class="flex items-center"><i class="fa-solid fa-clock text-slate-500 w-6"></i> 9-year Lease Term remaining</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar: Action -->
+                    <div class="lg:w-96">
+                        <div class="bg-slate-800 rounded-2xl p-6 border border-slate-700 shadow-2xl sticky top-24">
+                            <div class="flex items-center justify-between mb-6">
+                                <h3 class="font-bold text-white text-lg">Invest Now</h3>
+                                <div class="text-xs text-emerald-500 bg-emerald-500/10 px-2 py-1 rounded border border-emerald-500/20 flex items-center font-bold">
+                                    <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse mr-1.5"></span> Live
+                                </div>
+                            </div>
+                            
+                            <div class="bg-slate-900/80 rounded-xl p-4 mb-6 border border-slate-700/50">
+                                <div class="flex items-center justify-between text-sm mb-1">
+                                    <span class="text-slate-400">Wallet Balance</span>
+                                    <span class="text-white font-mono font-bold" id="invest-wallet-bal">₹0.00</span>
+                                </div>
+                                <div class="text-right">
+                                    <button onclick="closePropertyDetail(); showDepositModal();" class="text-xs text-blue-400 hover:text-blue-300 font-bold uppercase tracking-wide">Add Funds</button>
+                                </div>
+                            </div>
+
+                            <div class="space-y-6">
+                                <div>
+                                    <label class="flex justify-between text-xs text-slate-500 uppercase font-bold mb-2">
+                                        <span>Shares</span>
+                                        <span class="text-blue-400 cursor-pointer hover:text-white transition" onclick="setMaxShares()">Max Possible</span>
+                                    </label>
+                                    <div class="flex items-center">
+                                        <button onclick="adjustDetailQty(-1)" class="w-12 h-12 bg-slate-700 rounded-l-lg flex items-center justify-center text-white hover:bg-slate-600 transition text-lg">-</button>
+                                        <input type="number" id="invest-qty" value="10" oninput="calcInvestTotal()" class="flex-1 h-12 bg-slate-900 border-y border-slate-700 text-center text-white font-mono text-lg focus:outline-none">
+                                        <button onclick="adjustDetailQty(1)" class="w-12 h-12 bg-slate-700 rounded-r-lg flex items-center justify-center text-white hover:bg-slate-600 transition text-lg">+</button>
+                                    </div>
+                                </div>
+
+                                <!-- Monthly SIP Toggle -->
+                                <div class="flex items-center justify-between p-3 bg-slate-700/30 rounded-lg border border-slate-700 cursor-pointer" onclick="toggleSIP()">
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 bg-purple-500/20 text-purple-400 rounded-full flex items-center justify-center mr-3"><i class="fa-solid fa-calendar-check"></i></div>
+                                        <div>
+                                            <div class="text-sm font-bold text-white">Monthly SIP</div>
+                                            <div class="text-[10px] text-slate-400">Auto-invest every month</div>
+                                        </div>
+                                    </div>
+                                    <div id="sip-toggle" class="w-10 h-5 bg-slate-600 rounded-full relative transition-colors duration-300">
+                                        <div id="sip-knob" class="absolute left-1 top-1 w-3 h-3 bg-white rounded-full shadow transition-all duration-300"></div>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-3 pt-4 border-t border-slate-700">
+                                    <div class="flex justify-between text-sm">
+                                        <span class="text-slate-400">Price / Share</span>
+                                        <span class="text-white font-mono" id="invest-unit-price">₹0.00</span>
+                                    </div>
+                                    <div class="flex justify-between text-sm">
+                                        <span class="text-slate-400">Platform Fee (1%)</span>
+                                        <span class="text-white font-mono" id="invest-fees">₹0.00</span>
+                                    </div>
+                                    <div class="flex justify-between text-sm">
+                                        <span class="text-slate-400">GST (18% on Fee)</span>
+                                        <span class="text-white font-mono" id="invest-gst">₹0.00</span>
+                                    </div>
+                                    <div class="border-t border-slate-700 my-2"></div>
+                                    <div class="flex justify-between text-lg font-bold">
+                                        <span class="text-white">Total Cost</span>
+                                        <span class="text-blue-400 font-mono" id="invest-total">₹0.00</span>
+                                    </div>
+                                </div>
+
+                                <button onclick="startInvestmentFlow()" id="btn-invest-main" class="w-full bg-blue-600 hover:bg-blue-500 text-white py-4 rounded-xl font-bold transition shadow-lg shadow-blue-600/30 text-lg transform active:scale-[0.98] flex items-center justify-center">
+                                    Confirm Investment
+                                </button>
+                                <p class="text-[10px] text-center text-slate-500">By clicking confirm, you agree to the Subscription Agreement and RDD.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MODALS ==================== -->
+
+    <!-- Deposit Modal -->
+    <div id="modal-deposit" class="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 backdrop-blur-sm hidden fade-in p-4">
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl w-full max-w-md shadow-2xl p-6 relative">
+            <button onclick="closeModal('modal-deposit')" class="absolute top-4 right-4 text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            
+            <div class="mb-6 text-center">
+                <div class="w-14 h-14 bg-blue-600/20 text-blue-500 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl"><i class="fa-solid fa-wallet"></i></div>
+                <h3 class="text-xl font-bold text-white">Add Funds</h3>
+                <p class="text-slate-400 text-sm">Secure gateway via UPI / Netbanking</p>
+            </div>
+            
+            <div class="space-y-4">
+                <div class="grid grid-cols-3 gap-3">
+                    <button onclick="setDepositAmount(20000)" class="py-2 border border-slate-600 rounded-lg hover:bg-slate-700 text-sm text-slate-300 transition bg-slate-900">₹20k</button>
+                    <button onclick="setDepositAmount(50000)" class="py-2 border border-slate-600 rounded-lg hover:bg-slate-700 text-sm text-slate-300 transition bg-slate-900">₹50k</button>
+                    <button onclick="setDepositAmount(100000)" class="py-2 border border-slate-600 rounded-lg hover:bg-slate-700 text-sm text-slate-300 transition bg-slate-900">₹1 Lakh</button>
+                </div>
+                
+                <div class="relative">
+                    <span class="absolute left-4 top-3.5 text-slate-400 text-lg font-mono">₹</span>
+                    <input type="number" id="deposit-input" class="w-full bg-slate-900 border border-slate-600 rounded-xl py-3 pl-8 pr-4 text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none font-mono text-lg" placeholder="Enter amount">
+                </div>
+
+                <div class="bg-slate-900/50 p-3 rounded-lg text-xs text-slate-400 border border-slate-700/50 flex items-center justify-between">
+                    <span class="flex items-center text-emerald-500 font-bold"><i class="fa-solid fa-shield-halved mr-2"></i> Verified Secure</span>
+                    <div class="flex space-x-2">
+                        <i class="fa-brands fa-google-pay text-white text-lg"></i>
+                        <i class="fa-brands fa-cc-visa text-white text-lg"></i>
+                    </div>
+                </div>
+
+                <button onclick="processDeposit()" id="btn-deposit-pay" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white py-3.5 rounded-xl font-bold shadow-lg shadow-emerald-600/20 transition transform hover:-translate-y-0.5">
+                    PROCEED TO PAY
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sell/Liquidity Modal -->
+    <div id="modal-sell" class="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 backdrop-blur-sm hidden fade-in p-4">
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl w-full max-w-md shadow-2xl p-6 relative">
+            <button onclick="closeModal('modal-sell')" class="absolute top-4 right-4 text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            
+            <h3 class="text-xl font-bold text-white mb-1">Sell Asset</h3>
+            <p class="text-slate-400 text-sm mb-6">Bandra BKC One</p>
+            
+            <div class="bg-slate-900 p-4 rounded-lg border border-slate-700 mb-6">
+                <div class="flex justify-between text-sm mb-2">
+                    <span class="text-slate-400">Market Price</span>
+                    <span class="text-white font-mono">₹12,450</span>
+                </div>
+                 <div class="flex justify-between text-sm mb-4">
+                    <span class="text-slate-400">Your Holdings</span>
+                    <span class="text-white font-mono">50 Units</span>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <input type="number" class="flex-1 bg-slate-800 border border-slate-600 rounded px-3 py-2 text-white" placeholder="Qty to sell">
+                    <button class="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded font-bold">SELL</button>
+                </div>
+            </div>
+            
+            <div class="flex items-center p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg text-xs text-amber-200">
+                <i class="fa-solid fa-triangle-exclamation mr-2 text-amber-500"></i>
+                Instant liquidity option is available at 2% discount.
+            </div>
+        </div>
+    </div>
+
+    <!-- Realistic Payment Processor Overlay -->
+    <div id="modal-payment" class="fixed inset-0 z-[70] flex items-center justify-center bg-white hidden">
+        <div class="text-center w-full max-w-sm">
+            <div id="pay-step-1">
+                <div class="spinner border-blue-600 border-l-transparent mx-auto mb-6 w-16 h-16 border-4 rounded-full animate-spin"></div>
+                <h3 class="text-xl font-bold text-gray-800">Connecting to Bank...</h3>
+                <p class="text-gray-500 text-sm mt-2">Please do not close this window</p>
+            </div>
+            <div id="pay-step-2" class="hidden">
+                <div class="spinner border-purple-600 border-l-transparent mx-auto mb-6 w-16 h-16 border-4 rounded-full animate-spin"></div>
+                <h3 class="text-xl font-bold text-gray-800">Verifying Payment...</h3>
+                <p class="text-gray-500 text-sm mt-2">Do not press back or refresh</p>
+            </div>
+             <div id="pay-step-3" class="hidden">
+                <div class="w-16 h-16 bg-green-100 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl scale-110 transition"><i class="fa-solid fa-check"></i></div>
+                <h3 class="text-xl font-bold text-gray-800">Payment Successful</h3>
+                <p class="text-gray-500 text-sm mt-2">Redirecting to portfolio...</p>
+            </div>
+            
+            <div class="mt-8 flex justify-center space-x-4 opacity-50">
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Razorpay_logo.svg" class="h-5">
+                 <div class="h-5 w-px bg-gray-300"></div>
+                 <span class="text-xs text-gray-500 flex items-center"><i class="fa-solid fa-lock mr-1"></i> SSL Secure</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Toast -->
+    <div id="toast" class="fixed bottom-20 right-4 md:right-8 md:bottom-8 z-[80] transform transition-all duration-500 translate-y-32 opacity-0">
+        <div class="bg-slate-800 border-l-4 border-emerald-500 text-white px-6 py-4 rounded-lg shadow-2xl flex items-center min-w-[320px]">
+            <div class="bg-emerald-500/20 rounded-full p-2 mr-4">
+                <i class="fa-solid fa-check text-emerald-500"></i>
+            </div>
+            <div>
+                <h4 class="font-bold text-sm text-white" id="toast-title">Success</h4>
+                <p class="text-xs text-slate-400 mt-0.5" id="toast-msg">Action completed successfully.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== MOCK DATA ====================
+        const properties = [
+            {
+                id: 1,
+                name: 'Bandra BKC One',
+                location: 'Mumbai, MH',
+                type: 'Commercial Office',
+                price: 12450.00,
+                yield: 8.5,
+                irr: 13.5,
+                score: 94,
+                aiGrowth: 12.1,
+                image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop'
+            },
+            {
+                id: 2,
+                name: 'Embassy TechVillage',
+                location: 'Bangalore, KA',
+                type: 'Tech Park',
+                price: 8200.50,
+                yield: 9.1,
+                irr: 14.2,
+                score: 91,
+                aiGrowth: 10.5,
+                image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop'
+            },
+            {
+                id: 3,
+                name: 'DLF CyberHub',
+                location: 'Gurgaon, NCR',
+                type: 'Retail & Office',
+                price: 9150.00,
+                yield: 7.8,
+                irr: 12.9,
+                score: 88,
+                aiGrowth: 9.2,
+                image: 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?q=80&w=2070&auto=format&fit=crop'
+            },
+            {
+                id: 4,
+                name: 'Mindspace IT Park',
+                location: 'Hyderabad, TS',
+                type: 'IT Park',
+                price: 6500.00,
+                yield: 9.5,
+                irr: 15.0,
+                score: 89,
+                aiGrowth: 11.0,
+                image: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2070&auto=format&fit=crop'
+            },
+            {
+                id: 5,
+                name: 'Candolim Luxury Villa',
+                location: 'North Goa',
+                type: 'Vacation Home',
+                price: 15200.00,
+                yield: 6.5,
+                irr: 16.5,
+                score: 85,
+                aiGrowth: 14.5,
+                image: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=2071&auto=format&fit=crop'
+            },
+            {
+                id: 6,
+                name: 'Bhiwandi Logistics Hub',
+                location: 'Mumbai Outskirts',
+                type: 'Warehousing',
+                price: 4500.00,
+                yield: 8.9,
+                irr: 13.8,
+                score: 82,
+                aiGrowth: 8.1,
+                image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=2070&auto=format&fit=crop'
+            },
+            {
+                id: 7,
+                name: 'OMR IT Plaza',
+                location: 'Chennai, TN',
+                type: 'Commercial Office',
+                price: 5800.00,
+                yield: 8.7,
+                irr: 13.2,
+                score: 84,
+                aiGrowth: 9.0,
+                image: 'https://images.unsplash.com/photo-1577017040065-65052831a153?q=80&w=2070&auto=format&fit=crop'
+            },
+            {
+                id: 8,
+                name: 'Kalyani Nagar Biz Bay',
+                location: 'Pune, MH',
+                type: 'Commercial Office',
+                price: 7100.00,
+                yield: 8.2,
+                irr: 12.5,
+                score: 87,
+                aiGrowth: 8.8,
+                image: 'https://images.unsplash.com/photo-1554469384-e58fac16e23a?q=80&w=1887&auto=format&fit=crop'
+            },
+            {
+                id: 9,
+                name: 'Manipal Student Living',
+                location: 'Udupi, KA',
+                type: 'Student Housing',
+                price: 3200.00,
+                yield: 10.2,
+                irr: 14.5,
+                score: 90,
+                aiGrowth: 10.1,
+                image: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?q=80&w=2069&auto=format&fit=crop'
+            },
+            {
+                id: 10,
+                name: 'Noida Data Center',
+                location: 'Noida, UP',
+                type: 'Data Center',
+                price: 11000.00,
+                yield: 11.5,
+                irr: 17.0,
+                score: 95,
+                aiGrowth: 15.2,
+                image: 'https://images.unsplash.com/photo-1558494949-ef526b0042a0?q=80&w=2070&auto=format&fit=crop'
+            },
+            {
+                id: 11,
+                name: 'Azure Bay Resorts',
+                location: 'North Goa',
+                type: 'Resort (IPO)',
+                price: 5000.00,
+                yield: 7.2,
+                irr: 14.2,
+                score: 88,
+                aiGrowth: 13.0,
+                image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2070&auto=format&fit=crop'
+            }
+        ];
+
+        // Initialize Properties
+        properties.forEach(p => {
+            p.basePrice = p.price;
+            p.change = (Math.random() * 0.4 + 0.1).toFixed(2);
+            p.history = [];
+            let price = p.price * 0.85; 
+            for(let i=0; i<20; i++) {
+                p.history.push(price);
+                price = price * (1 + (Math.random() * 0.03 - 0.005));
+            }
+            p.history.push(p.price);
+        });
+
+        let user = {
+            name: 'Pilot User',
+            email: 'pilot@divest.in',
+            balance: 0,
+            portfolio: []
+        };
+
+        let activePropertyId = null;
+        let chartInstance = null;
+        let simulationInterval = null;
+        let activityInterval = null;
+        let isSIPEnabled = false;
+
+        // ==================== AUTH ====================
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const pass = document.getElementById('login-pass').value;
+            const err = document.getElementById('login-error');
+            const btn = document.getElementById('login-btn');
+
+            if (email === 'pilot@divest.in' && pass === 'divest2024') {
+                err.classList.add('hidden');
+                btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Authenticating via SEBI Gateway...';
+                btn.classList.add('opacity-75', 'cursor-not-allowed');
+                
+                setTimeout(() => {
+                    document.getElementById('auth-container').classList.add('fade-out');
+                    setTimeout(() => {
+                        document.getElementById('auth-container').classList.add('hidden');
+                        document.getElementById('app-container').classList.remove('hidden');
+                        void document.getElementById('app-container').offsetWidth;
+                        document.getElementById('app-container').classList.remove('opacity-0');
+                        
+                        user.balance = 5000; 
+                        updateBalance();
+                        initApp();
+                        showToast('Access Granted', 'Welcome back, Pilot User.', 'success');
+                    }, 600);
+                }, 2000);
+            } else {
+                err.classList.remove('hidden');
+                const form = e.target;
+                form.classList.add('translate-x-2');
+                setTimeout(() => form.classList.remove('translate-x-2'), 100);
+                setTimeout(() => form.classList.add('-translate-x-2'), 100);
+                setTimeout(() => form.classList.remove('-translate-x-2'), 200);
+            }
+        }
+
+        function logout() {
+            location.reload();
+        }
+
+        // ==================== APP CORE ====================
+        function initApp() {
+            renderMarketplace();
+            renderDashboardRows();
+            updatePortfolio();
+            startMarketSimulation();
+            startActivityFeed();
+        }
+
+        function startMarketSimulation() {
+            simulationInterval = setInterval(() => {
+                properties.forEach(p => {
+                    // Gentle drift
+                    const change = 1 + (Math.random() * 0.003 - 0.001); 
+                    p.price = p.price * change;
+                    p.history.shift();
+                    p.history.push(p.price);
+                    
+                    const pct = ((p.price - p.basePrice) / p.basePrice) * 100;
+                    p.change = pct.toFixed(2);
+                });
+
+                // Live Ticker Update
+                updateTicker();
+                
+                // Refresh active view only
+                if(!document.getElementById('view-dashboard').classList.contains('hidden')) renderDashboardRows();
+                if(!document.getElementById('view-portfolio').classList.contains('hidden')) updatePortfolio();
+                if(activePropertyId) updateDetailLive();
+
+            }, 4000);
+        }
+
+        function startActivityFeed() {
+            const activities = [
+                "Verified Investor from Mumbai purchased 20 units of Bandra BKC One.",
+                "Bangalore Tech Park just distributed quarterly dividends.",
+                "New Tenant signed for Noida Data Center (Lock-in: 5 Yrs).",
+                "User from Delhi added ₹5 Lakhs to Wallet.",
+                "Azure Bay Resorts IPO is now 84% subscribed."
+            ];
+            
+            const feed = document.getElementById('activity-feed');
+            activityInterval = setInterval(() => {
+                feed.style.opacity = 0;
+                setTimeout(() => {
+                    feed.innerText = "Live: " + activities[Math.floor(Math.random() * activities.length)];
+                    feed.style.opacity = 1;
+                }, 500);
+            }, 8000);
+            
+            // Init Ticker
+            updateTicker();
+        }
+
+        function updateTicker() {
+            const ticker = document.getElementById('header-ticker');
+            let html = '';
+            properties.slice(0, 6).forEach(p => {
+                const color = parseFloat(p.change) >= 0 ? 'text-emerald-500' : 'text-red-500';
+                const icon = parseFloat(p.change) >= 0 ? 'up' : 'down';
+                html += `<span class="font-bold text-slate-300">${p.name} <span class="${color} ml-1"><i class="fa-solid fa-caret-${icon}"></i> ${Math.abs(p.change)}%</span></span> <span class="text-slate-600 mx-2">|</span> `;
+            });
+            ticker.innerHTML = html + html; // Duplicate for seamless scroll if implemented fully
+        }
+
+        function switchView(viewName) {
+            // Hide all
+            ['dashboard', 'marketplace', 'portfolio', 'documents', 'settings', 'support'].forEach(v => {
+                document.getElementById('view-' + v).classList.add('hidden');
+                const nav = document.getElementById('nav-' + v);
+                if(nav) nav.classList.remove('active');
+            });
+
+            // Show target
+            document.getElementById('view-' + viewName).classList.remove('hidden');
+            const nav = document.getElementById('nav-' + viewName);
+            if(nav) nav.classList.add('active');
+
+            // Header Title
+            const titles = {
+                'dashboard': 'Executive Dashboard',
+                'marketplace': 'Primary Marketplace',
+                'portfolio': 'My Portfolio',
+                'documents': 'Legal Documents',
+                'settings': 'Account Settings',
+                'support': 'Priority Support'
+            };
+            document.getElementById('page-title').innerText = titles[viewName];
+            
+            if(viewName === 'portfolio') updatePortfolio();
+        }
+
+        // ==================== RENDER LOGIC ====================
+        function renderMarketplace() {
+            const grid = document.getElementById('marketplace-grid');
+            grid.innerHTML = '';
+            properties.forEach(p => {
+                grid.innerHTML += `
+                    <div class="bg-slate-800 rounded-xl overflow-hidden border border-slate-700 hover:border-blue-500 transition duration-300 group cursor-pointer shadow-lg flex flex-col h-full relative" onclick="openPropertyDetail(${p.id})">
+                        <div class="h-48 relative overflow-hidden">
+                            <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                            <div class="absolute top-3 right-3 flex space-x-2">
+                                <div class="bg-slate-900/90 backdrop-blur text-white text-[10px] font-bold px-2 py-1 rounded border border-slate-700">
+                                    ${p.yield}% Yield
+                                </div>
+                                ${p.score > 90 ? '<div class="bg-purple-600 text-white text-[10px] font-bold px-2 py-1 rounded shadow-lg animate-pulse"><i class="fa-solid fa-robot mr-1"></i> AI Pick</div>' : ''}
+                            </div>
+                            ${p.id === 11 ? '<div class="absolute top-3 left-3 bg-blue-600 text-white text-[10px] font-bold px-2 py-1 rounded shadow-sm uppercase">IPO Open</div>' : ''}
+                        </div>
+                        <div class="p-5 flex flex-col flex-1">
+                            <div class="mb-1">
+                                <div class="text-[10px] text-blue-400 font-bold uppercase tracking-wide mb-1 inline-block">${p.type}</div>
+                                <h3 class="text-lg font-heading font-bold text-white leading-tight mt-0.5 group-hover:text-blue-400 transition">${p.name}</h3>
+                            </div>
+                            <div class="flex items-center text-slate-400 text-xs mb-4">
+                                <i class="fa-solid fa-location-dot mr-1"></i> ${p.location}
+                            </div>
+                            
+                            <div class="mt-auto pt-4 border-t border-slate-700 grid grid-cols-2 gap-4">
+                                <div>
+                                    <div class="text-[10px] text-slate-500 uppercase font-bold">Unit Price</div>
+                                    <div class="text-base font-bold text-white font-mono">₹${Math.floor(p.price).toLocaleString()}</div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-[10px] text-slate-500 uppercase font-bold">Target IRR</div>
+                                    <div class="text-base font-bold text-emerald-400">${p.irr}%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function renderDashboardRows() {
+            const tbody = document.getElementById('dashboard-market-rows');
+            const subset = properties.slice(0, 5);
+            tbody.innerHTML = '';
+            subset.forEach(p => {
+                const color = parseFloat(p.change) >= 0 ? 'text-emerald-500' : 'text-red-500';
+                tbody.innerHTML += `
+                    <tr class="hover:bg-slate-800/50 transition cursor-pointer group" onclick="openPropertyDetail(${p.id})">
+                        <td class="p-4 font-bold text-white flex items-center">
+                            <img src="${p.image}" class="w-8 h-8 rounded object-cover mr-3 group-hover:scale-110 transition">
+                            <span class="truncate max-w-[100px] md:max-w-none">${p.name}</span>
+                        </td>
+                        <td class="p-4 text-slate-400 text-xs hidden md:table-cell">${p.type}</td>
+                        <td class="p-4 text-right font-mono text-white">₹${p.price.toLocaleString('en-IN', {maximumFractionDigits:2})}</td>
+                        <td class="p-4 text-right ${color} font-bold">${parseFloat(p.change) > 0 ? '+' : ''}${p.change}%</td>
+                        <td class="p-4 text-right text-purple-400 font-bold">${p.score}</td>
+                        <td class="p-4 text-right"><button class="text-blue-400 hover:text-white text-[10px] font-bold border border-blue-500/30 hover:bg-blue-600 px-3 py-1 rounded transition uppercase">Trade</button></td>
+                    </tr>
+                `;
+            });
+        }
+
+        // ==================== DETAIL VIEW ====================
+        function openPropertyDetail(id) {
+            activePropertyId = id;
+            const p = properties.find(x => x.id === id);
+            if(!p) return;
+
+            document.getElementById('detail-img').src = p.image;
+            document.getElementById('detail-title').innerText = p.name;
+            document.getElementById('detail-tag').innerText = p.type;
+            document.getElementById('detail-loc').innerHTML = `<i class="fa-solid fa-location-dot mr-2 text-blue-400"></i> ${p.location}`;
+            
+            document.getElementById('detail-yield').innerText = p.yield + '%';
+            document.getElementById('detail-irr').innerText = p.irr + '%';
+            document.getElementById('detail-score').innerText = p.score;
+            document.getElementById('detail-ai-growth').innerText = '+' + p.aiGrowth + '%';
+            
+            updateDetailLive(); 
+
+            // Reset Forms
+            document.getElementById('invest-qty').value = 10;
+            isSIPEnabled = false;
+            updateSIPUI();
+            calcInvestTotal();
+            document.getElementById('invest-wallet-bal').innerText = '₹' + user.balance.toLocaleString('en-IN', {maximumFractionDigits:2});
+
+            document.getElementById('view-property-detail').classList.remove('hidden');
+            renderChart(p);
+        }
+
+        function updateDetailLive() {
+            if(!activePropertyId) return;
+            const p = properties.find(x => x.id === activePropertyId);
+            
+            const priceStr = '₹' + p.price.toLocaleString('en-IN', {maximumFractionDigits:2});
+            document.getElementById('detail-price').innerText = priceStr;
+            document.getElementById('invest-unit-price').innerText = priceStr;
+            
+            const color = parseFloat(p.change) >= 0 ? 'text-emerald-500' : 'text-red-500';
+            document.getElementById('detail-change').className = `text-sm font-bold mt-1 ${color}`;
+            document.getElementById('detail-change').innerText = (parseFloat(p.change) > 0 ? '+' : '') + p.change + '% (24h)';
+            
+            calcInvestTotal();
+        }
+
+        function closePropertyDetail() {
+            document.getElementById('view-property-detail').classList.add('hidden');
+            activePropertyId = null;
+        }
+
+        function renderChart(asset) {
+            const ctx = document.getElementById('detailChart').getContext('2d');
+            if(chartInstance) chartInstance.destroy();
+
+            const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, 'rgba(59, 130, 246, 0.5)');
+            gradient.addColorStop(1, 'rgba(59, 130, 246, 0.0)');
+
+            chartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: Array.from({length: asset.history.length}, (_, i) => i+1),
+                    datasets: [{
+                        label: 'NAV Price',
+                        data: asset.history,
+                        borderColor: '#3b82f6',
+                        backgroundColor: gradient,
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 0,
+                        pointHoverRadius: 6,
+                        pointHoverBackgroundColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#1e293b',
+                            titleColor: '#fff',
+                            bodyColor: '#94a3b8',
+                            padding: 12,
+                            borderColor: '#334155',
+                            borderWidth: 1,
+                            displayColors: false,
+                            callbacks: {
+                                label: function(context) {
+                                    return 'NAV: ₹' + context.parsed.y.toFixed(2);
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: { display: false },
+                        y: { 
+                            display: true,
+                            position: 'right',
+                            grid: { color: '#334155', borderDash: [5, 5] },
+                            ticks: { 
+                                color: '#94a3b8',
+                                font: { family: 'Manrope', size: 10 },
+                                callback: function(value) { return '₹' + Math.floor(value/1000) + 'k'; } 
+                            }
+                        }
+                    },
+                    interaction: {
+                        intersect: false,
+                        mode: 'index',
+                    },
+                }
+            });
+        }
+
+        // ==================== INVESTMENT LOGIC ====================
+        function adjustDetailQty(delta) {
+            const input = document.getElementById('invest-qty');
+            let val = parseInt(input.value) + delta;
+            if (val < 1) val = 1;
+            input.value = val;
+            calcInvestTotal();
+        }
+
+        function setMaxShares() {
+            if(!activePropertyId) return;
+            const p = properties.find(x => x.id === activePropertyId);
+            const max = Math.floor(user.balance / (p.price * 1.0118));
+            document.getElementById('invest-qty').value = max > 0 ? max : 1;
+            calcInvestTotal();
+        }
+
+        function toggleSIP() {
+            isSIPEnabled = !isSIPEnabled;
+            updateSIPUI();
+        }
+
+        function updateSIPUI() {
+            const toggle = document.getElementById('sip-toggle');
+            const knob = document.getElementById('sip-knob');
+            if(isSIPEnabled) {
+                toggle.classList.remove('bg-slate-600');
+                toggle.classList.add('bg-purple-500');
+                knob.classList.remove('left-1');
+                knob.classList.add('left-6');
+            } else {
+                toggle.classList.add('bg-slate-600');
+                toggle.classList.remove('bg-purple-500');
+                knob.classList.add('left-1');
+                knob.classList.remove('left-6');
+            }
+        }
+
+        function calcInvestTotal() {
+            if(!activePropertyId) return;
+            const p = properties.find(x => x.id === activePropertyId);
+            const qty = parseInt(document.getElementById('invest-qty').value) || 0;
+            
+            const subtotal = p.price * qty;
+            const fees = subtotal * 0.01;
+            const gst = fees * 0.18;
+            const total = subtotal + fees + gst;
+
+            document.getElementById('invest-fees').innerText = '₹' + fees.toLocaleString('en-IN', {maximumFractionDigits:2});
+            document.getElementById('invest-gst').innerText = '₹' + gst.toLocaleString('en-IN', {maximumFractionDigits:2});
+            document.getElementById('invest-total').innerText = '₹' + total.toLocaleString('en-IN', {maximumFractionDigits:2});
+            
+            const btn = document.getElementById('btn-invest-main');
+            if(total > user.balance) {
+                btn.disabled = true;
+                btn.classList.add('opacity-50', 'cursor-not-allowed', 'grayscale');
+                btn.classList.remove('hover:bg-blue-500');
+                btn.innerHTML = '<i class="fa-solid fa-ban mr-2"></i> Insufficient Funds';
+            } else {
+                btn.disabled = false;
+                btn.classList.remove('opacity-50', 'cursor-not-allowed', 'grayscale');
+                btn.classList.add('hover:bg-blue-500');
+                btn.innerHTML = isSIPEnabled ? 'Start Monthly SIP' : 'Confirm Investment';
+            }
+        }
+
+        function startInvestmentFlow() {
+            const modal = document.getElementById('modal-payment');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            // Reset Steps
+            document.getElementById('pay-step-1').classList.remove('hidden');
+            document.getElementById('pay-step-2').classList.add('hidden');
+            document.getElementById('pay-step-3').classList.add('hidden');
+
+            // Sequence
+            setTimeout(() => {
+                document.getElementById('pay-step-1').classList.add('hidden');
+                document.getElementById('pay-step-2').classList.remove('hidden');
+            }, 1500);
+
+            setTimeout(() => {
+                document.getElementById('pay-step-2').classList.add('hidden');
+                document.getElementById('pay-step-3').classList.remove('hidden');
+                
+                // Trigger Confetti
+                createConfetti();
+            }, 3500);
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                executeInvestment();
+            }, 5000);
+        }
+
+        function createConfetti() {
+            for(let i=0; i<50; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = -10 + 'px';
+                confetti.style.backgroundColor = ['#3b82f6', '#10b981', '#f59e0b', '#ec4899'][Math.floor(Math.random()*4)];
+                confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 5000);
+            }
+        }
+
+        function executeInvestment() {
+            const p = properties.find(x => x.id === activePropertyId);
+            const qty = parseInt(document.getElementById('invest-qty').value);
+            
+            const subtotal = p.price * qty;
+            const fees = subtotal * 0.01;
+            const gst = fees * 0.18;
+            const total = subtotal + fees + gst;
+
+            if(user.balance >= total) {
+                user.balance -= total;
+                
+                const existing = user.portfolio.find(i => i.id === p.id);
+                if(existing) {
+                    const totalOldCost = existing.avgCost * existing.qty;
+                    const totalNewCost = p.price * qty;
+                    existing.qty += qty;
+                    existing.avgCost = (totalOldCost + totalNewCost) / existing.qty;
+                } else {
+                    user.portfolio.push({
+                        id: p.id,
+                        qty: qty,
+                        avgCost: p.price
+                    });
+                }
+
+                updateBalance();
+                closePropertyDetail();
+                
+                // Redirect to Portfolio to show proof
+                switchView('portfolio');
+                
+                showToast('Investment Successful', `You now own ${qty} units of ${p.name}.`, 'success');
+            }
+        }
+
+        // ==================== PORTFOLIO & WALLET ====================
+        function updatePortfolio() {
+            const list = document.getElementById('portfolio-list');
+            const empty = document.getElementById('portfolio-empty');
+            const table = list.parentElement;
+            const statsBar = document.getElementById('portfolio-stats-bar');
+            
+            if(user.portfolio.length === 0) {
+                table.classList.add('hidden');
+                statsBar.classList.add('hidden');
+                empty.classList.remove('hidden');
+                
+                document.getElementById('dash-total-value').innerText = '₹0.00';
+                document.getElementById('dash-returns-pct').innerText = '0.00%';
+                document.getElementById('dash-rent').innerText = '₹0.00';
+                return;
+            }
+
+            table.classList.remove('hidden');
+            statsBar.classList.remove('hidden');
+            empty.classList.add('hidden');
+            list.innerHTML = '';
+            
+            let totalCurrentVal = 0;
+            let totalInvestedVal = 0;
+            let projectedAnnualRent = 0;
+
+            user.portfolio.forEach(item => {
+                const asset = properties.find(p => p.id === item.id);
+                if(!asset) return;
+
+                const currentVal = asset.price * item.qty;
+                const investedVal = item.avgCost * item.qty;
+                
+                const gain = currentVal - investedVal;
+                const gainPct = investedVal > 0 ? ((gain / investedVal) * 100).toFixed(2) : 0;
+                const color = gain >= 0 ? 'text-emerald-500' : 'text-red-500';
+                const sign = gain >= 0 ? '+' : '';
+
+                projectedAnnualRent += (currentVal * (asset.yield / 100));
+                totalCurrentVal += currentVal;
+                totalInvestedVal += investedVal;
+
+                list.innerHTML += `
+                    <tr class="hover:bg-slate-800/50 transition group">
+                        <td class="p-4 pl-6 font-bold text-white flex items-center">
+                            <img src="${asset.image}" class="w-10 h-10 rounded-lg object-cover mr-3 shadow-md hidden md:block">
+                            <div>
+                                <div class="text-sm">${asset.name}</div>
+                                <div class="text-[10px] text-slate-500 uppercase">${asset.location}</div>
+                            </div>
+                        </td>
+                        <td class="p-4 text-center text-slate-300 font-bold">${item.qty}</td>
+                        <td class="p-4 text-right text-slate-400">₹${item.avgCost.toLocaleString('en-IN', {maximumFractionDigits:0})}</td>
+                        <td class="p-4 text-right text-white">₹${asset.price.toLocaleString('en-IN', {maximumFractionDigits:0})}</td>
+                        <td class="p-4 text-right text-slate-500 hidden md:table-cell">₹${investedVal.toLocaleString('en-IN', {maximumFractionDigits:0})}</td>
+                        <td class="p-4 text-right text-white font-bold">₹${currentVal.toLocaleString('en-IN', {maximumFractionDigits:0})}</td>
+                        <td class="p-4 text-right ${color} font-medium">
+                            <div>${sign}₹${Math.abs(gain).toLocaleString('en-IN', {maximumFractionDigits:0})}</div>
+                            <div class="text-xs opacity-80">${sign}${gainPct}%</div>
+                        </td>
+                        <td class="p-4 text-center">
+                            <button class="bg-slate-700 hover:bg-blue-600 text-white p-2 rounded transition" title="Buy More" onclick="openPropertyDetail(${asset.id})"><i class="fa-solid fa-plus"></i></button>
+                            <button class="bg-slate-700 hover:bg-red-600 text-white p-2 rounded transition ml-1" title="Sell" onclick="openSellModal('${asset.name}', ${asset.price}, ${item.qty})"><i class="fa-solid fa-minus"></i></button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            // Update Global Stats
+            const totalGain = totalCurrentVal - totalInvestedVal;
+            const totalGainPct = totalInvestedVal > 0 ? ((totalGain / totalInvestedVal) * 100).toFixed(2) : 0;
+            
+            document.getElementById('dash-total-value').innerText = '₹' + totalCurrentVal.toLocaleString('en-IN', {maximumFractionDigits:2});
+            document.getElementById('dash-returns-pct').innerText = totalGainPct + '%';
+            document.getElementById('dash-rent').innerText = '₹' + (projectedAnnualRent / 12).toLocaleString('en-IN', {maximumFractionDigits:0});
+            
+            document.getElementById('port-invested').innerText = '₹' + (totalInvestedVal/1000).toFixed(1) + 'k';
+            document.getElementById('port-current').innerText = '₹' + (totalCurrentVal/1000).toFixed(1) + 'k';
+            document.getElementById('port-gain').innerText = (totalGain >= 0 ? '+' : '') + '₹' + Math.abs(totalGain).toLocaleString('en-IN', {maximumFractionDigits:0});
+            document.getElementById('port-count').innerText = user.portfolio.length;
+
+            const dashColorEl = document.getElementById('dash-returns-color');
+            const dashArrow = document.getElementById('dash-arrow');
+            if(totalGain >= 0) {
+                dashColorEl.className = 'text-emerald-500 font-bold bg-emerald-500/10 px-2 py-0.5 rounded mr-2 flex items-center border border-emerald-500/20';
+                dashArrow.className = 'fa-solid fa-arrow-up text-xs mr-1';
+            } else {
+                dashColorEl.className = 'text-red-500 font-bold bg-red-500/10 px-2 py-0.5 rounded mr-2 flex items-center border border-red-500/20';
+                dashArrow.className = 'fa-solid fa-arrow-down text-xs mr-1';
+            }
+        }
+
+        function updateBalance() {
+            const f = '₹' + user.balance.toLocaleString('en-IN', {maximumFractionDigits:2});
+            document.getElementById('sidebar-balance').innerText = f;
+            document.getElementById('dash-balance').innerText = f;
+            document.getElementById('invest-wallet-bal').innerText = f;
+        }
+
+        function openSellModal(name, price, qty) {
+            const m = document.getElementById('modal-sell');
+            m.querySelector('p').innerText = name;
+            m.querySelectorAll('span')[1].innerText = '₹' + price.toLocaleString();
+            m.querySelectorAll('span')[3].innerText = qty + ' Units';
+            m.classList.remove('hidden');
+        }
+
+        function showDepositModal() {
+            document.getElementById('modal-deposit').classList.remove('hidden');
+        }
+
+        function setDepositAmount(amt) {
+            document.getElementById('deposit-input').value = amt;
+        }
+
+        function processDeposit() {
+            const input = document.getElementById('deposit-input');
+            const amt = parseInt(input.value);
+            if(!amt || amt <= 0) return;
+
+            const btn = document.getElementById('btn-deposit-pay');
+            const oldHtml = btn.innerHTML;
+            
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Processing with Bank...';
+            btn.disabled = true;
+            btn.classList.add('opacity-75');
+
+            setTimeout(() => {
+                user.balance += amt;
+                updateBalance();
+                closeModal('modal-deposit');
+                showToast('Deposit Successful', `₹${amt.toLocaleString()} added to wallet via UPI.`, 'success');
+                input.value = '';
+                btn.innerHTML = oldHtml;
+                btn.disabled = false;
+                btn.classList.remove('opacity-75');
+                
+                if(activePropertyId) calcInvestTotal();
+            }, 2000);
+        }
+
+        // ==================== UTILS ====================
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        function showToast(title, msg, type) {
+            const t = document.getElementById('toast');
+            document.getElementById('toast-title').innerText = title;
+            document.getElementById('toast-msg').innerText = msg;
+            
+            t.classList.remove('translate-y-32', 'opacity-0');
+            setTimeout(() => {
+                t.classList.add('translate-y-32', 'opacity-0');
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
